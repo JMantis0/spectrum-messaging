@@ -1,0 +1,13 @@
+form.signup,
+form.login,
+form.accountSearch {
+  margin-top: 50px;
+}
+
+.alert {
+  white-space: pre-wrap;
+}
+
+label {
+  margin-top: 15px;
+}
