@@ -5,9 +5,17 @@ import TheLord from "./TheLord";
 import TheLordsInput from "./TheLordsInput";
 import TheLordsOutput from "./TheLordsOutput";
 
+//  I want the TheLordsOutput component to be able to display the prayerState
+
 function TheLordsComponent (props) {
 
   let [ prayerState, setPrayerState] = useState("...")
+
+  // prayer should be a string
+  function handlePrayer (event)  {
+  console.log(event);
+    // setPrayerState(prayer)
+  }
 
   return (
     <Container>
@@ -15,7 +23,7 @@ function TheLordsComponent (props) {
       <Row>
         <TheLord />
       </Row>
-      <TheLordsInput setPrayer={(prayer) => setPrayerState(prayer)}/>
+      <TheLordsInput setPrayer={handlePrayer}/>
       <Row>
         <TheLordsOutput prayerOutput={prayerState}/>
       </Row>

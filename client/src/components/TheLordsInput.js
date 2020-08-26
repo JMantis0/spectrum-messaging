@@ -9,7 +9,7 @@ function TheLordsInput(props) {
     <Col>
       <InputGroup className="mb-3">
         <InputGroup.Prepend >
-          <Button  variant="outline-secondary">Pray</Button>
+          <Button onClick={props.handlePrayer} variant="outline-secondary">Pray</Button>
         </InputGroup.Prepend>
         <FormControl className="theLordsInput" aria-describedby="basic-addon1" />
       </InputGroup>
