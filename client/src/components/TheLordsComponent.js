@@ -12,8 +12,7 @@ function TheLordsComponent(props) {
 
   // prayer should be a string
   function handlePrayer(event) {
-    console.log(event);
-    // setPrayerState(prayer)
+    setPrayerState("Dear Lord, " + event.current.value + "  -Amen")
   }
 
   return (
@@ -22,7 +21,7 @@ function TheLordsComponent(props) {
       <Row>
         <TheLord />
       </Row>
-      <TheLordsInput setPrayer={handlePrayer} />
+      <TheLordsInput handlePrayer={handlePrayer} />
       <Row>
         <TheLordsOutput prayerOutput={prayerState} />
       </Row>
