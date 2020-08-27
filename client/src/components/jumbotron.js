@@ -11,10 +11,11 @@ function Jumbotron({ children }) {
       }}
       className="jumbotron border border-success"
     >
+      {" "}
+      <p> MVP Bitch</p>
       {children}
-      
     </div>
   );
-};
+}
 
 export default Jumbotron;

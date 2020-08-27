@@ -1,16 +1,14 @@
 import React from "react";
-import { Col, Row, Container } from "../components/Grid";
-import CreatePostForm from "../components/CreatePostForm";
-import PostsList from "../components/PostsList";
+import Jumbotron from "../components/jumbotron.js";
 
 const Home = () => {
   return (
-<Nav/>
-    <Container>
+    <div>
+      {/* <Nav /> */}
       <Jumbotron />
-      <Search />
-      <Results />
-    </Container>
+      {/* <Search />
+      <Results /> */}
+    </div>
   );
 };
 
