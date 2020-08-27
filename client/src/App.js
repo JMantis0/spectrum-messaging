@@ -4,7 +4,12 @@ import "./App.css";
 import TheLordsComponent from "./components/TheLordsComponent";
 
 
-function App() {
+import Chat from './components/Chat/Chat';
+import Join from './components/Join/Join';
+
+import { BrowserRouter as Router, Route } from "react-router-dom";
+
+const App = () => {
   return (
     <div className="App">
       <div className="App-header">
@@ -17,8 +22,11 @@ function App() {
       <TheLordsComponent />
 
     </div>
+    <Router>
+      <Route path="/" exact component={Join} />
+      <Route path="/chat" component={Chat} />
+    </Router>
   );
 }
-
 
 export default App;
