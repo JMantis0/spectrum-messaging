@@ -4,6 +4,7 @@ import Row from "react-bootstrap/Row";
 import TheLord from "./TheLord";
 import TheLordsInput from "./TheLordsInput";
 import TheLordsOutput from "./TheLordsOutput";
+import API from "../utils/API"
 
 //  I want the TheLordsOutput component to be able to display the prayerState
 
@@ -12,7 +13,15 @@ function TheLordsComponent(props) {
 
   // prayer should be a string
   function handlePrayer(event) {
-    setPrayerState("Dear Lord, " + event.current.value + "  -Amen")
+    setPrayerState("Dear Lord, " + event.current.value + "  -Amen");
+  }
+
+  // textToAnalyze coming from lordsRef
+  function handleSubmit(textToAnalyze) {
+ 
+    console.log("textToAnalyze", textToAnalyze)
+    API.analyzeText(textToAnalyze);
+
   }
 
   return (
@@ -21,9 +30,9 @@ function TheLordsComponent(props) {
       <Row>
         <TheLord />
       </Row>
-      <TheLordsInput handlePrayer={handlePrayer} />
+      <TheLordsInput handleSubmit={handleSubmit} handlePrayer={handlePrayer} />
       <Row>
-        <TheLordsOutput prayerOutput={prayerState} />
+        <TheLordsOutput prayerState={prayerState} />
       </Row>
     </Container>
   );

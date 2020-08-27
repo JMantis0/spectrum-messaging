@@ -5,19 +5,22 @@ import FormControl from "react-bootstrap/FormControl";
 import Button from "react-bootstrap/Button";
 
 function TheLordsInput(props) {
-
   const lordsRef = useRef("");
-  
-
 
   return (
     <Col>
       <InputGroup className="mb-3">
         <InputGroup.Prepend>
-          <Button onClick={() => props.handlePrayer(lordsRef)} variant="outline-secondary">
+          <Button
+            onClick={() => {
+              props.handlePrayer(lordsRef);
+              props.handleSubmit(lordsRef);
+              console.log(lordsRef)
+            }}
+            variant="outline-secondary"
+          >
             Pray
           </Button>
-          
         </InputGroup.Prepend>
         <FormControl
           className="theLordsInput"

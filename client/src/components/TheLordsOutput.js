@@ -5,7 +5,7 @@ function TheLordsOutput(props) {
   return (
     <Col>
       <h3>Output</h3>
-      <div className="theLordsOutput">{props.prayerOutput}</div>
+      <div className="theLordsOutput">{props.prayerState}</div>
     </Col>
   );
 }
