@@ -14,27 +14,27 @@ router.get("/test", (req, res) => {
 });
 
 router.post("/analyze", (req, res) => {
-console.log(req.body.text);
-axios({
-  "method":"POST",
-  "url":"https://twinword-emotion-analysis-v1.p.rapidapi.com/analyze/",
-  "headers":{
-  "content-type":"application/x-www-form-urlencoded",
-  "x-rapidapi-host":"twinword-emotion-analysis-v1.p.rapidapi.com",
-  "x-rapidapi-key":"26417dba96mshc908747af3c9234p1996ddjsnf25834dcd684",
-  "useQueryString":true
-  },"data":{
-  "text": req.body.text
-  }
+  console.log(req.body.text);
+  axios({
+    method: "POST",
+    url: "https://twinword-emotion-analysis-v1.p.rapidapi.com/analyze/",
+    headers: {
+      "content-type": "application/x-www-form-urlencoded",
+      "x-rapidapi-host": "twinword-emotion-analysis-v1.p.rapidapi.com",
+      "x-rapidapi-key": "26417dba96mshc908747af3c9234p1996ddjsnf25834dcd684",
+      useQueryString: true,
+    },
+    data: {
+      text: req.body.text,
+    },
   })
-  .then((response)=>{
-    console.log("THE API RESPONSE", response)
-    res.json(response)
-  })
-  .catch((error)=>{
-    console.log("THERE WAS AN ERROR: ", error)
-  })
-
+    .then((response) => {
+      console.log("THE API RESPONSE", response);
+      res.json(response);
+    })
+    .catch((error) => {
+      console.log("THERE WAS AN ERROR: ", error);
+    });
 });
 
 module.exports = router;
