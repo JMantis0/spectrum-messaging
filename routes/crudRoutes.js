@@ -15,8 +15,8 @@ router.get("/getAllBetweenTwoUsers", (req, res) => {
 
 router.post("/createUser", (req, res) => {
 
-  /*  THIS SECTION WILL BE USED FOR PASSWORD REQS
-
+  // THIS SECTION WILL BE USED FOR PASSWORD REQS
+  console.log("backend inside /createUser Route")
   const pwRegEx = new RegExp(
     "^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[+!@#$%^&*])(?=.{8,})"
   );
@@ -30,19 +30,17 @@ router.post("/createUser", (req, res) => {
     return;
   }
 
-  */
   db.User.create({
     email: req.body.email,
     password: req.body.password,
-    recoveryQuestion: null,
-    recoveryAnswer: null
+    userName: req.body.userName
   })
-    .then(() => {
-      res.redirect(307, "/api/login");
+    .then((response) => {
+      res.send(response);
     })
     .catch((err) => {
       console.log(err);
-      res.status(401).json(err);
+      res.status(400).json(err);
     });
 });
 
