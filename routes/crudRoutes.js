@@ -44,4 +44,11 @@ router.post("/createUser", (req, res) => {
     });
 });
 
+router.post("/addMessage", (req, res) => {
+
+  db.Message.create({
+    
+  })
+})
+
 module.exports = router;

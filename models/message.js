@@ -1,21 +1,25 @@
 module.exports = function(sequelize, DataTypes) {
-  const Post = sequelize.define("Message", {
+  const Message = sequelize.define("Message", {
     body: {
       type: DataTypes.TEXT,
       allowNull: false,
       validate: {
         len: [1]
       }
+    },
+    recipient: {
+      type: DataTypes.TEXT,
+      allowNull: false
     }
   });
 
-  Post.associate = function(models) {
-    Post.belongsTo(models.User, {
+Message.associate = function(models) {
+    Message.belongsTo(models.User, {
       foreignKey: {
         allowNull: false
       }
     });
   };
 
-  return Post;
+  return Message;
 };
