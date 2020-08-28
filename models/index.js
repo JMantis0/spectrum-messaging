@@ -18,7 +18,6 @@ if (config.use_env_variable) {
     config
   );
 }
-console.log(sequelize);
 
 fs.readdirSync(__dirname)
   .filter(function(file) {
