@@ -18,7 +18,7 @@ module.exports = function(sequelize, DataTypes) {
       allowNull: false
     },
     // User type is either brewR or brewRy
-    usertype: {
+    userName: {
       type: DataTypes.STRING,
       allowNull: false
     }

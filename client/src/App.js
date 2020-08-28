@@ -1,8 +1,8 @@
 import React from "react";
 import logo from "./logo.svg";
 import "./App.css";
-import TheLordsComponent from "./components/TheLordsComponent";
-
+import TheLordsComponent from "./components/Lord/TheLordsComponent";
+import SignUp from "./components/SignUp/SignUp"
 import Chat from "./components/Chat/Chat";
 import Join from "./components/Join/Join";
 
@@ -14,7 +14,8 @@ const App = () => {
       <Route path="lord">
           <TheLordsComponent />
       </Route>
-      <Route path="/" exact component={Join} />
+      <Route path="/" exact component={SignUp} />
+      <Route path="/join" component={Join} />
       <Route path="/chat" component={Chat} />
     </Router>
   );

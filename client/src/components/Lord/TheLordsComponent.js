@@ -4,7 +4,7 @@ import Row from "react-bootstrap/Row";
 import TheLord from "./TheLord";
 import TheLordsInput from "./TheLordsInput";
 import TheLordsOutput from "./TheLordsOutput";
-import API from "../utils/API"
+import API from "../../utils/API"
 
 //  I want the TheLordsOutput component to be able to display the prayerState
 
