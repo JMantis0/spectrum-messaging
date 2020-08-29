@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
-
 import "./SignUp.css";
 
 function SignUp() {
@@ -16,6 +15,7 @@ function SignUp() {
   //  Security requirements.  It also checks that the retype matches the original type.
   //  Returns false if the tests fail, true if they pass.
   //  The returned boolean is used by the Link component.
+
   function handleSignUpClick() {
     console.log("Inside handleSignUpCLick");
     if (password !== passwordRetype) {
@@ -59,10 +59,12 @@ function SignUp() {
     console.log(password === passwordRetype);
     console.log(typeof password, typeof passwordRetype);
   }
+
   return (
     <div className="signUpOuterContainer">
       <div className="signUpInnerContainer">
         <h1 className="heading">Sign Up</h1>
+
         {/* <button onClick={consoleState}>Console Logs</button> */}
         <div>
           <input
