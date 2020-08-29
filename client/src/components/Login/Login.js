@@ -4,6 +4,29 @@ import axios from "axios";
 
 import "./Login.css";
 
+// This is the javascript for the remember me button.
+
+// const rmCheck = document.getElementById("rememberMe"),
+//     emailInput = document.getElementById("email");
+
+// if (localStorage.checkbox && localStorage.checkbox !== "") {
+//   rmCheck.setAttribute("checked", "checked");
+//   emailInput.value = localStorage.username;
+// } else {
+//   rmCheck.removeAttribute("checked");
+//   emailInput.value = "";
+// }
+
+// function lsRememberMe() {
+//   if (rmCheck.checked && emailInput.value !== "") {
+//     localStorage.username = emailInput.value;
+//     localStorage.checkbox = rmCheck.value;
+//   } else {
+//     localStorage.username = "";
+//     localStorage.checkbox = "";
+//   }
+// }
+
 function Login() {
   const [email, setEmail] = useState("");
   const [userName, setUserName] = useState("");
@@ -62,7 +85,7 @@ function Login() {
   return (
     <div className="LoginOuterContainer">
       <div className="LoginInnerContainer">
-        <h1 className="heading">Sign Up</h1>
+        <h1 className="heading">Login</h1>
         {/* <button onClick={consoleState}>Console Logs</button> */}
         <div>
           <input
@@ -80,22 +103,8 @@ function Login() {
             onChange={(event) => setUserName(event.target.value)}
           />
         </div>
-        <div>
-          <input
-            placeholder="Password"
-            className="LoginInput mt-20"
-            type="password"
-            onChange={(event) => setPassword(event.target.value)}
-          />
-        </div>
-        <div>
-          <input
-            placeholder="Retype Password"
-            className="LoginInput mt-20"
-            type="password"
-            onChange={(event) => setPasswordRetype(event.target.value)}
-          />
-        </div>
+        <input type="checkbox" value="lsRememberMe" id="rememberMe" />{" "}
+        <label for="rememberMe">Remember me</label>
         <div
           style={{ display: alertDisplay }}
           id="alert"
@@ -108,7 +117,6 @@ function Login() {
           ></span>
           <span className="sr-only">Error:</span> {infoMessage}
         </div>
-
         <Link
           onClick={(e) => {
             console.log(e);
@@ -121,7 +129,7 @@ function Login() {
           to={"/join"}
         >
           <button className={"button mt-20"} type="submit">
-            Sign UP
+            Login
           </button>
         </Link>
       </div>

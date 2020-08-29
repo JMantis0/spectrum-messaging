@@ -4,15 +4,28 @@ body {
   padding: 0;
   margin: 0;
 }
+#rememberMe {
+  float: left;
+  margin-top: 10px;
+  margin-left: 5px;
+}
 
 #root {
   height: 100vh;
 }
-
+img {
+  max-width: 180px;
+  max-height: 100px;
+}
 * {
   box-sizing: border-box;
 }
-
+label {
+  color: white;
+  float: left;
+  padding-left: 10px;
+  margin-top: 4px;
+}
 .LoginOuterContainer {
   display: flex;
   justify-content: center;
