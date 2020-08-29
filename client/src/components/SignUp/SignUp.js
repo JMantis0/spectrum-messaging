@@ -13,8 +13,9 @@ function SignUp() {
 
   //  This function validates user input by checking to make sure the passwords satisfy
   //  Security requirements.  It also checks that the retype matches the original type.
-  //  Returns false if the tests fail, true if they pass.  
+  //  Returns false if the tests fail, true if they pass.
   //  The returned boolean is used by the Link component.
+
   function handleSignUpClick() {
     console.log("Inside handleSignUpCLick");
     if (password !== passwordRetype) {
@@ -35,15 +36,18 @@ function SignUp() {
         return false;
       }
       //  Passwords match and pass requirements
-      axios.post("crud/createUser", {
-        email,
-        password,
-        userName
-      }).then(response => console.log("response from crud/createUser route", response))
-      .catch(err => console.log("There was an error: ", err))
-      return true;
+      axios
+        .post("crud/createUser", {
+          email,
+          password,
+          userName,
+        })
+        .then((response) => {
+          console.log("response from crud/createUser route", response);
+          return true;
+        })
+        .catch((err) => console.log("There was an error: ", err));
     }
-
   }
 
   function consoleState() {
@@ -61,66 +65,66 @@ function SignUp() {
       <div className="signUpInnerContainer">
         <h1 className="heading">Sign Up</h1>
         <button onClick={consoleState}>Console Logs</button>
-        <div>
-          <input
-            placeholder="E-mail"
-            className="signUpInput"
-            type="email"
-            onChange={(event) => setEmail(event.target.value)}
-          />
-        </div>
-        <div>
-          <input
-            placeholder="User Name"
-            className="signUpInput"
-            type="text"
-            onChange={(event) => setUserName(event.target.value)}
-          />
-        </div>
-        <div>
-          <input
-            placeholder="Password"
-            className="signUpInput mt-20"
-            type="password"
-            onChange={(event) => setPassword(event.target.value)}
-          />
-        </div>
-        <div>
-          <input
-            placeholder="Retype Password"
-            className="signUpInput mt-20"
-            type="password"
-            onChange={(event) => setPasswordRetype(event.target.value)}
-          />
-        </div>
-        <div
-          style={{ display: alertDisplay }}
-          id="alert"
-          className="alert alert-danger"
-          role="alert"
-        >
-          <span
-            className="glyphicon glyphicon-exclamation-sign"
-            aria-hidden="true"
-          ></span>
-          <span className="sr-only">Error:</span> {infoMessage}
-        </div>
+          <div>
+            <input
+              placeholder="E-mail"
+              className="signUpInput"
+              type="email"
+              onChange={(event) => setEmail(event.target.value)}
+            />
+          </div>
+          <div>
+            <input
+              placeholder="User Name"
+              className="signUpInput"
+              type="text"
+              onChange={(event) => setUserName(event.target.value)}
+            />
+          </div>
+          <div>
+            <input
+              placeholder="Password"
+              className="signUpInput mt-20"
+              type="password"
+              onChange={(event) => setPassword(event.target.value)}
+            />
+          </div>
+          <div>
+            <input
+              placeholder="Retype Password"
+              className="signUpInput mt-20"
+              type="password"
+              onChange={(event) => setPasswordRetype(event.target.value)}
+            />
+          </div>
+          <div
+            style={{ display: alertDisplay }}
+            id="alert"
+            className="alert alert-danger"
+            role="alert"
+          >
+            <span
+              className="glyphicon glyphicon-exclamation-sign"
+              aria-hidden="true"
+            ></span>
+            <span className="sr-only">Error:</span> {infoMessage}
+          </div>
 
-        <Link
-          onClick={(e) => {
-            console.log(e);
-            const pass = handleSignUpClick();
-            console.log(pass);
-            if(!pass) {
-              e.preventDefault();
-            }
-          }}
-          to={"/join"}
-        >
-          <button className={"button mt-20"} type="submit">
-            Sign UP
-          </button>
-        </Link>
+          <Link
+            onClick={(e) => {
+              console.log(e);
+              const pass = handleSignUpClick();
+              console.log(pass);
+              if (!pass) {
+                e.preventDefault();
+              }
+            }}
+            to={"/join"}
+          >
+            <button className={"button mt-20"} type="submit">
+              Sign UP
+            </button>
+          </Link>
       </div>
     </div>
   );
