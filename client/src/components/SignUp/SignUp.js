@@ -3,7 +3,6 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 
 import "./SignUp.css";
-import Axios from "axios";
 
 function SignUp() {
   const [email, setEmail] = useState("");
@@ -15,7 +14,7 @@ function SignUp() {
 
   //  This function validates user input by checking to make sure the passwords satisfy
   //  Security requirements.  It also checks that the retype matches the original type.
-  //  Returns false if the tests fail, true if they pass.  
+  //  Returns false if the tests fail, true if they pass.
   //  The returned boolean is used by the Link component.
   function handleSignUpClick() {
     console.log("Inside handleSignUpCLick");
@@ -37,15 +36,18 @@ function SignUp() {
         return false;
       }
       //  Passwords match and pass requirements
-      axios.post("crud/createUser", {
-        email,
-        password,
-        userName
-      }).then(response => console.log("response from crud/createUser route", response))
-      .catch(err => console.log("There was an error: ", err))
+      axios
+        .post("crud/createUser", {
+          email,
+          password,
+          userName,
+        })
+        .then((response) =>
+          console.log("response from crud/createUser route", response)
+        )
+        .catch((err) => console.log("There was an error: ", err));
       return true;
     }
-
   }
 
   function consoleState() {
@@ -61,7 +63,7 @@ function SignUp() {
     <div className="signUpOuterContainer">
       <div className="signUpInnerContainer">
         <h1 className="heading">Sign Up</h1>
-        <button onClick={consoleState}>Console Logs</button>
+        {/* <button onClick={consoleState}>Console Logs</button> */}
         <div>
           <input
             placeholder="E-mail"
@@ -112,7 +114,7 @@ function SignUp() {
             console.log(e);
             const pass = handleSignUpClick();
             console.log(pass);
-            if(!pass) {
+            if (!pass) {
               e.preventDefault();
             }
           }}
@@ -122,6 +124,7 @@ function SignUp() {
             Sign UP
           </button>
         </Link>
+        <a href="../Login">already have an account?</a>
       </div>
     </div>
   );
