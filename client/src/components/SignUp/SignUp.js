@@ -55,6 +55,7 @@ function SignUp() {
     console.log(password === passwordRetype);
     console.log(typeof password, typeof passwordRetype);
   }
+
   return (
     <div className="signUpOuterContainer">
       <div className="signUpInnerContainer">
@@ -64,7 +65,7 @@ function SignUp() {
           <input
             placeholder="E-mail"
             className="signUpInput"
-            type="text"
+            type="email"
             onChange={(event) => setEmail(event.target.value)}
           />
         </div>

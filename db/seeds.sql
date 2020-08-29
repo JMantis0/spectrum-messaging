@@ -1,4 +1,4 @@
-INSERT INTO users (email, password, usertype, userID)
+INSERT INTO users (email, password, userName)
 VALUES 
-("testEmail@email.com", "testPassword", "testType", 1),
-("testEmail2@email.com", "testPassword2", "testType2", 2);
+("testEmail@email.com", "testPassword", "testUserName"),
+("coderdude@gmail.com", "coderdudepassword", "CodeBro2020");
