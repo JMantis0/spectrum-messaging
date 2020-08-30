@@ -22,5 +22,5 @@ CREATE TABLE Messages (
   recipient VARCHAR(255) NOT NULL,
   UserId INTEGER NOT NULL,
   PRIMARY KEY (id),
-  FOREIGN KEY (UserId) REFERENCES Users(id)
+  FOREIGN KEY (sender) REFERENCES Users(email)
 );
