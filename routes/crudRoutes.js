@@ -12,7 +12,6 @@ router.get("/getAllBetweenTwoUsers", (req, res) => {
 });
 
 router.post("/createUser", (req, res) => {
-  // THIS SECTION WILL BE USED FOR PASSWORD REQS
   console.log("backend inside /createUser Route");
   const pwRegEx = new RegExp(
     "^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[+!@#$%^&*])(?=.{8,})"
@@ -42,8 +41,40 @@ router.post("/createUser", (req, res) => {
     });
 });
 
+
+//  Route expects a message body and recipient, and a UserID (the sender)
+
 router.post("/addMessage", (req, res) => {
-  db.Message.create({});
+  db.Message.create({
+    body: req.body.message,
+    recipient: req.body.recipient,
+    UserId: req.body.UserId
+  })
+  .then(response => {
+    res.send(response);
+  })
+  .catch(err => {
+    console.log("There was an error :", err);
+    res.status(400).send(err);
+  });
 });
+
+
+//  This route gets all the messages sent to the currently logged in user by the other user in the convo
+//  And also gets all the messages sent from the currently logged in user to the other user in the convo
+//  Thus this route expects to emails (the currently logged in user and the other conversant)
+
+router.get("/getMessages", (req, res) => {
+
+  const messageTo = [];
+  const messageFrom = [];
+
+  db.Message.findAll({
+    where: {
+      email: req.user.email
+    }
+  })
+
+})
 
 module.exports = router;

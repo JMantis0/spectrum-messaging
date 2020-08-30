@@ -65,6 +65,7 @@ function SignUp() {
       <div className="signUpInnerContainer">
         <h1 className="heading">Sign Up</h1>
         <button onClick={consoleState}>Console Logs</button>
+        <form>
           <div>
             <input
               placeholder="E-mail"
@@ -125,6 +126,7 @@ function SignUp() {
               Sign UP
             </button>
           </Link>
+        </form>
       </div>
     </div>
   );
