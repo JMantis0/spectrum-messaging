@@ -1,9 +1,33 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
-import "./SignUp.css";
 
-function SignUp() {
+import "./Login.css";
+
+// This is the javascript for the remember me button.
+
+// const rmCheck = document.getElementById("rememberMe"),
+//     emailInput = document.getElementById("email");
+
+// if (localStorage.checkbox && localStorage.checkbox !== "") {
+//   rmCheck.setAttribute("checked", "checked");
+//   emailInput.value = localStorage.username;
+// } else {
+//   rmCheck.removeAttribute("checked");
+//   emailInput.value = "";
+// }
+
+// function lsRememberMe() {
+//   if (rmCheck.checked && emailInput.value !== "") {
+//     localStorage.username = emailInput.value;
+//     localStorage.checkbox = rmCheck.value;
+//   } else {
+//     localStorage.username = "";
+//     localStorage.checkbox = "";
+//   }
+// }
+
+function Login() {
   const [email, setEmail] = useState("");
   const [userName, setUserName] = useState("");
   const [password, setPassword] = useState("");
@@ -15,9 +39,8 @@ function SignUp() {
   //  Security requirements.  It also checks that the retype matches the original type.
   //  Returns false if the tests fail, true if they pass.
   //  The returned boolean is used by the Link component.
-
-  function handleSignUpClick() {
-    console.log("Inside handleSignUpCLick");
+  function handleLoginClick() {
+    console.log("Inside handleLoginCLick");
     if (password !== passwordRetype) {
       setInfoMessage("Your passwords do not match");
       setAlertDisplay("block");
@@ -59,17 +82,15 @@ function SignUp() {
     console.log(password === passwordRetype);
     console.log(typeof password, typeof passwordRetype);
   }
-
   return (
-    <div className="signUpOuterContainer">
-      <div className="signUpInnerContainer">
-        <h1 className="heading">Sign Up</h1>
-
+    <div className="LoginOuterContainer">
+      <div className="LoginInnerContainer">
+        <h1 className="heading">Login</h1>
         {/* <button onClick={consoleState}>Console Logs</button> */}
         <div>
           <input
             placeholder="E-mail"
-            className="signUpInput"
+            className="LoginInput"
             type="text"
             onChange={(event) => setEmail(event.target.value)}
           />
@@ -77,27 +98,13 @@ function SignUp() {
         <div>
           <input
             placeholder="User Name"
-            className="signUpInput"
+            className="LoginInput"
             type="text"
             onChange={(event) => setUserName(event.target.value)}
           />
         </div>
-        <div>
-          <input
-            placeholder="Password"
-            className="signUpInput mt-20"
-            type="password"
-            onChange={(event) => setPassword(event.target.value)}
-          />
-        </div>
-        <div>
-          <input
-            placeholder="Retype Password"
-            className="signUpInput mt-20"
-            type="password"
-            onChange={(event) => setPasswordRetype(event.target.value)}
-          />
-        </div>
+        <input type="checkbox" value="lsRememberMe" id="rememberMe" />{" "}
+        <label for="rememberMe">Remember me</label>
         <div
           style={{ display: alertDisplay }}
           id="alert"
@@ -110,11 +117,10 @@ function SignUp() {
           ></span>
           <span className="sr-only">Error:</span> {infoMessage}
         </div>
-
         <Link
           onClick={(e) => {
             console.log(e);
-            const pass = handleSignUpClick();
+            const pass = handleLoginClick();
             console.log(pass);
             if (!pass) {
               e.preventDefault();
@@ -123,13 +129,12 @@ function SignUp() {
           to={"/join"}
         >
           <button className={"button mt-20"} type="submit">
-            Sign UP
+            Login
           </button>
         </Link>
-        <a href="../Login">already have an account?</a>
       </div>
     </div>
   );
 }
 
-export default SignUp;
+export default Login;
