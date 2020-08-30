@@ -36,45 +36,63 @@ router.post("/createUser", (req, res) => {
     })
     .catch((err) => {
       console.log("There was an error :", err);
-      console.log(err.name)
+      console.log(err.name);
       res.status(404).json(err);
     });
 });
 
-
-//  Route expects a message body and recipient, and a UserID (the sender)
+//  Route expects a req with a body recipient, and  senderId props (the sender)
+//  And maybe later add a jsonEmo for api call info
+//  That would be an interesting async challenge!
 
 router.post("/addMessage", (req, res) => {
+  console.log(req)
   db.Message.create({
     body: req.body.message,
-    recipient: req.body.recipient,
-    UserId: req.body.UserId
+    recipientId: req.body.recipientId,
+    senderId: req.body.senderId,
   })
-  .then(response => {
-    res.send(response);
-  })
-  .catch(err => {
-    console.log("There was an error :", err);
-    res.status(400).send(err);
-  });
+    .then((response) => {
+      res.send(response);
+    })
+    .catch((err) => {
+      console.log("There was an error :", err);
+      res.status(400).send(err);
+    });
 });
-
 
 //  This route gets all the messages sent to the currently logged in user by the other user in the convo
 //  And also gets all the messages sent from the currently logged in user to the other user in the convo
 //  Thus this route expects to emails (the currently logged in user and the other conversant)
 
-router.get("/getMessages", (req, res) => {
+router.get("/getConvo", (req, res) => {
+  const { senderId, recipientId } = req.body;
 
-  const messageTo = [];
-  const messageFrom = [];
-
+  // SELECT * FROM MESSAGES WHERE (senderId = senderId AND recipientId = rId) OR (senderId = rId AND recipientId = senderId);
   db.Message.findAll({
-    where: {
-      email: req.user.email
-    }
+    $or: [
+      {
+        where: {
+          senderId: senderId,
+          recipientId: recipientId,
+        },
+      },
+      {
+        where: {
+          senderId: recipientId,
+          recipientId: senderId,
+        },
+      },
+    ],
   })
-
-})
+    .then((conversation) => {
+      console.log("crudRoutes.js response: ", conversation);
+      res.status(202).send(conversation);
+    })
+    .catch((error) => {
+      console.log("There was an error: ".error);
+      res.status(400).send(error);
+    });
+});
 
 module.exports = router;

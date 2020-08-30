@@ -4,20 +4,23 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.TEXT,
       allowNull: false,
       validate: {
-        len: [1]
-      }
+        len: [1],
+      },
     },
-    recipient: {
-      type: DataTypes.TEXT,
-      allowNull: false
-    }
   });
 
-Message.associate = function(models) {
+  Message.associate = function(models) {
     Message.belongsTo(models.User, {
+      as: "sender",
       foreignKey: {
-        allowNull: false
-      }
+        allowNull: false,
+      },
+    });
+    Message.belongsTo(models.User, {
+      as: "recipient",
+      foreignKey: {
+        allowNull: false,
+      },
     });
   };
 
