@@ -132,6 +132,7 @@ function Login() {
             Login
           </button>
         </Link>
+        <a href="/">Need to signup?</a>
       </div>
     </div>
   );
