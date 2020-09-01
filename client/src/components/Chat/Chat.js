@@ -1,9 +1,7 @@
 import React, { useState, useEffect } from "react";
 import queryString from "query-string";
 import io from "socket.io-client";
-
 import Input from "../Input/Input";
-
 import "./Chat.css";
 
 let socket;
