@@ -95,4 +95,9 @@ router.get("/getConvo", (req, res) => {
     });
 });
 
+//  Might need a route to add multiple messages
+router.post("/addManyMessages", (req, res) => {
+  res.send("Whoa, that's the addManyMessages route.")
+})
+
 module.exports = router;
