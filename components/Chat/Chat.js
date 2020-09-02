@@ -1,9 +1,15 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, FaGem, FaHeart } from "react";
+import Container from "react-bootstrap/Container";
+import {
+  ProSidebar,
+  SidebarHeader,
+  SidebarFooter,
+  SidebarContent,
+} from "react-pro-sidebar";
+import "react-pro-sidebar/dist/css/styles.css";
 import queryString from "query-string";
 import io from "socket.io-client";
-
 import Input from "../Input/Input";
-
 import "./Chat.css";
 
 let socket;
@@ -14,7 +20,7 @@ const Chat = ({ location }) => {
   const [users, setUsers] = useState("");
   const [message, setMessage] = useState("");
   const [messages, setMessages] = useState([]);
-  const ENDPOINT = "http://spectrum-messaging.herokuapp.com/";
+  const ENDPOINT = "localhost:3000";
 
   useEffect(() => {
     const { name, room } = queryString.parse(location.search);
@@ -50,10 +56,63 @@ const Chat = ({ location }) => {
       console.log(messages);
     }
   };
+  
 
   return (
     <div className="outerContainer">
-      <div className="container">
+      <ProSidebar>
+        <SidebarHeader>
+          {
+            <div className="column">
+              <img src="https://www.paulekman.com/wp-content/uploads/2018/07/PAFF_040918_emotionspectrum2-609x419-1280x720.jpg"></img>
+              <p>hello!</p>
+              <p>I like turtles</p>
+              <p>github.mindyabidness</p>
+              <p>LinkedIn more like blinked 182</p>
+              <button>viewprofile</button>
+            </div>
+          }
+        </SidebarHeader>
+        <SidebarContent>
+          {<p>yo you mad stupid, B! This AIN'T A BIO IT'S A CHATROOM BOY!</p>}
+        </SidebarContent>
+        <SidebarFooter>
+          {
+            <ul>
+              These Yo Conversations Cuz
+              <li>person 1</li>
+              <li>person 2</li>
+              <li>person 3</li>
+              <li>person 4</li>
+              <li>person 5</li>
+              <li>person 6</li>
+              <li>person 7</li>
+              <li>person 1</li>
+              <li>person 2</li>
+              <li>person 3</li>
+              <li>person 4</li>
+              <li>person 5</li>
+              <li>person 6</li>
+              <li>person 7</li>
+              <li>person 1</li>
+              <li>person 2</li>
+              <li>person 3</li>
+              <li>person 4</li>
+              <li>person 5</li>
+              <li>person 6</li>
+              <li>person 7</li>
+              <li>person 1</li>
+              <li>person 2</li>
+              <li>person 3</li>
+              <li>person 4</li>
+              <li>person 5</li>
+              <li>person 6</li>
+              <li>person 7</li>
+            </ul>
+          }
+        </SidebarFooter>
+      </ProSidebar>
+      <div className="messageContainer">
         <Input
           message={message}
           setMessage={setMessage}
@@ -61,6 +120,17 @@ const Chat = ({ location }) => {
         />
         {messages.text}
       </div>
+      <div className="messages">
+    {messages.map(message => {
+        return (
+            <div>{message.author}: {message.message}</div>
+        )
+    })};
+    </div>
+      <Container>
+        <p id="left">PUT ON TOP THE MOTHER EFFIN THANG BREH</p>
+        <p id="right">PUT ON TOP THE MOTHER EFFIN THANG BREH</p>
+      </Container>
     </div>
   );
 };
