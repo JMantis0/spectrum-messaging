@@ -46,7 +46,7 @@ router.post("/createUser", (req, res) => {
 //  That would be an interesting async challenge!
 
 router.post("/addMessage", (req, res) => {
-  console.log(req)
+  console.log(req);
   db.Message.create({
     body: req.body.message,
     recipientId: req.body.recipientId,
@@ -97,7 +97,24 @@ router.get("/getConvo", (req, res) => {
 
 //  Might need a route to add multiple messages
 router.post("/addManyMessages", (req, res) => {
-  res.send("Whoa, that's the addManyMessages route.")
-})
+  res.send("Whoa, that's the addManyMessages route.");
+});
+
+router.get("/loginAttempt", (req, res) => {
+  db.Users.find({
+    where: {
+      email: req.body.email,
+      password: req.body.password,
+    },
+  })
+    .then((userIfExists) => {
+      console.log(userIfExists);
+      res.status(202).json(userIfExists);
+    })
+    .catch((error) => {
+      console.log("There was an error", error);
+      res.status(404).send(error);
+    });
+});
 
 module.exports = router;
