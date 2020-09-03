@@ -9,8 +9,12 @@ import {
 import "react-pro-sidebar/dist/css/styles.css";
 import queryString from "query-string";
 import io from "socket.io-client";
-import Input from "../Input/Input";
+import Input, { setMessage, sendMessage } from "../Input/Input";
+import Messages from "../Messages/Messages"
+import Message from "../Message/Message"
+// import { ListItem, Avatar, List, ListItemText, ListItemAvatar, Divider} from '@material-ui/core';
 import "./Chat.css";
+
 
 let socket;
 
@@ -18,13 +22,13 @@ const Chat = ({ location }) => {
   const [name, setName] = useState("");
   const [room, setRoom] = useState("");
   const [users, setUsers] = useState("");
-  const [message, setMessage] = useState("");
-  const [messages, setMessages] = useState([]);
-  const ENDPOINT = "https://project-chat-application.herokuapp.com/";
+  const [message, setMessage] = useState([]); //create empty array to hold messages
+  const [messages, setMessages] = useState([]); 
+  const ENDPOINT = "localhost:3000";
 
   useEffect(() => {
     const { name, room } = queryString.parse(location.search);
-
+    console.log(name, room);
     socket = io(ENDPOINT);
 
     setRoom(room);
@@ -57,6 +61,7 @@ const Chat = ({ location }) => {
     }
   };
 
+
   return (
     <div className="outerContainer">
       <ProSidebar>
@@ -83,48 +88,33 @@ const Chat = ({ location }) => {
               <li>person 2</li>
               <li>person 3</li>
               <li>person 4</li>
-              <li>person 5</li>
-              <li>person 6</li>
-              <li>person 7</li>
-              <li>person 1</li>
-              <li>person 2</li>
-              <li>person 3</li>
-              <li>person 4</li>
-              <li>person 5</li>
-              <li>person 6</li>
-              <li>person 7</li>
-              <li>person 1</li>
-              <li>person 2</li>
-              <li>person 3</li>
-              <li>person 4</li>
-              <li>person 5</li>
-              <li>person 6</li>
-              <li>person 7</li>
-              <li>person 1</li>
-              <li>person 2</li>
-              <li>person 3</li>
-              <li>person 4</li>
-              <li>person 5</li>
-              <li>person 6</li>
-              <li>person 7</li>
             </ul>
           }
         </SidebarFooter>
       </ProSidebar>
-      <div className="container">
+
+          
+
+      <div className="container">     
+      <Messages messages={messages}/>   
+      <Message />
         <Input
           message={message}
           setMessage={setMessage}
           sendMessage={sendMessage}
         />
-        {messages.text}
+        {messages.map(message => message.text) }
+        {/* <div dangerouslySetInnerHTML={createMarkup} /> */}
       </div>
+
+      
+  
       <Container>
         <p id="left">PUT ON TOP THE MOTHER EFFIN THANG BREH</p>
         <p id="right">PUT ON TOP THE MOTHER EFFIN THANG BREH</p>
       </Container>
     </div>
   );
-};
+ };
 
 export default Chat;
