@@ -24,7 +24,7 @@ const Chat = ({ location }) => {
 
   useEffect(() => {
     const { name, room } = queryString.parse(location.search);
-
+    
     socket = io(ENDPOINT);
 
     setRoom(room);
@@ -117,7 +117,7 @@ const Chat = ({ location }) => {
           setMessage={setMessage}
           sendMessage={sendMessage}
         />
-        {messages.text}
+        {messages.map(message => message.text)}
       </div>
       <Container>
         <p id="left">PUT ON TOP THE MOTHER EFFIN THANG BREH</p>

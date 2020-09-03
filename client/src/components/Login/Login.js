@@ -31,7 +31,6 @@ function Login() {
   const [email, setEmail] = useState("");
   const [userName, setUserName] = useState("");
   const [password, setPassword] = useState("");
-  const [passwordRetype, setPasswordRetype] = useState("");
   const [infoMessage, setInfoMessage] = useState("");
   const [alertDisplay, setAlertDisplay] = useState("none");
 
@@ -41,46 +40,14 @@ function Login() {
   //  The returned boolean is used by the Link component.
   function handleLoginClick() {
     console.log("Inside handleLoginCLick");
-    if (password !== passwordRetype) {
-      setInfoMessage("Your passwords do not match");
-      setAlertDisplay("block");
-      return false;
-    } else {
-      const pwRegEx = new RegExp(
-        "^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[+!@#$%^&*])(?=.{8,})"
-      );
-      const passwordPasses = pwRegEx.test(password);
-
-      if (!passwordPasses) {
-        setInfoMessage(
-          "Password must have:\n    - minimum 8 characters\n    - one number\n    - one lowercase letter\n    - one uppercase letter\n    - one special-character"
-        );
-        setAlertDisplay("block");
-        return false;
-      }
-      //  Passwords match and pass requirements
-      axios
-        .post("crud/createUser", {
-          email,
-          password,
-          userName,
-        })
-        .then((response) =>
-          console.log("response from crud/createUser route", response)
-        )
-        .catch((err) => console.log("There was an error: ", err));
-      return true;
+    return true
     }
-  }
+  
 
   function consoleState() {
     console.log("alertDisplay", alertDisplay);
     console.log("email", email);
     console.log("userName", userName);
-    console.log("password", password);
-    console.log("passwordRetype", passwordRetype);
-    console.log(password === passwordRetype);
-    console.log(typeof password, typeof passwordRetype);
   }
   return (
     <div className="LoginOuterContainer">
