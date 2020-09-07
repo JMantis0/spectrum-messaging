@@ -101,7 +101,7 @@ router.post("/addManyMessages", (req, res) => {
 });
 
 router.get("/loginAttempt", (req, res) => {
-  db.Users.find({
+  db.User.find({
     where: {
       email: req.body.email,
       password: req.body.password,
@@ -114,6 +114,28 @@ router.get("/loginAttempt", (req, res) => {
     .catch((error) => {
       console.log("There was an error", error);
       res.status(404).send(error);
+    });
+});
+
+//  Check to see if the user exists
+router.get("/checkIfUserExistsAndCreate", (req, res) => {
+  console.log("inside /checkIfUserExistsAndCreate");
+  db.User.findOne({
+    where: {
+      email: req.body.email,
+    },
+  })
+    .then((response) => {
+      if (response === null) {
+        console.log("No such user found");
+        axios.post("/createUser", {})
+      }
+      console.log(response);
+      res.send(response);
+    })
+    .catch((error) => {
+      console.log(error);
+      res.send(error);
     });
 });
 

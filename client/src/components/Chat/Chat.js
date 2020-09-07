@@ -10,16 +10,15 @@ import ResponsiveDrawer from "../SideNav/ResponsiveDrawer";
 
 let socket;
 
-const Chat = ({ location }) => {
-  //  Auth0 hook stores user info
-  const { user, isAuthenticated } = useAuth0();
+const Chat = ({ location, user, isAuthenticated }) => {
+  
   //  States
   const [name, setName] = useState("");
   const [room, setRoom] = useState("");
   const [users, setUsers] = useState("");
   const [message, setMessage] = useState("");
   const [messages, setMessages] = useState([]);
-  //  socketio Endpoint
+  //  socketio Endpoints
   const ENDPOINT = "https://project-chat-application.herokuapp.com/";
 
   useEffect(() => {
@@ -60,7 +59,7 @@ const Chat = ({ location }) => {
   return (
     isAuthenticated && (
       <div className="outerContainer">
-        <ResponsiveDrawer />
+        <ResponsiveDrawer user={user} isAuthenticated={isAuthenticated} />
 
         <div className="container">
           <Input
