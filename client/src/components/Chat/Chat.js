@@ -12,6 +12,8 @@ import queryString from "query-string";
 import io from "socket.io-client";
 import Input from "../Input/Input";
 import "./Chat.css";
+import "@material-ui/core/";
+import ResponsiveDrawer from "../SideNav/ResponsiveDrawer";
 
 let socket;
 
@@ -62,26 +64,15 @@ const Chat = ({ location }) => {
   return (
     isAuthenticated && (
       <div className="outerContainer">
-        <ProSidebar>
-          <SidebarHeader>
-            {
-              <div className="column">
-                <img src="https://www.paulekman.com/wp-content/uploads/2018/07/PAFF_040918_emotionspectrum2-609x419-1280x720.jpg"></img>
-                <p>SidebarHeader</p>
-              </div>
-            }
-          </SidebarHeader>
-          <SidebarContent>{<p>SidebarContent</p>}</SidebarContent>
-          <SidebarFooter>{"footer"}</SidebarFooter>
-        </ProSidebar>
+        <ResponsiveDrawer />
+
         <div className="container">
           <Input
-          className="chatInput"
             message={message}
             setMessage={setMessage}
             sendMessage={sendMessage}
           />
-          {messages.map((message) => message.text)}
+          {message}
         </div>
       </div>
     )
