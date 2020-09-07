@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import "./SignUp.css";
+import LoginButton from "../LoginButton/LoginButton"
 
 function SignUp() {
   const [email, setEmail] = useState("");
