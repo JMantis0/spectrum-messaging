@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import LoginButton from "../LoginButton/LoginButton"
-import { useAuth0 } from '@auth0/auth0-react';
 import "./Login.css";
 
 // This is the javascript for the remember me button.
@@ -28,8 +27,7 @@ import "./Login.css";
 //   }
 // }
 
-function Login() {
-  const { user } = useAuth0();
+function Login( { user }) {
   return (
     <div className="LoginOuterContainer">
       <div className="LoginInnerContainer">
