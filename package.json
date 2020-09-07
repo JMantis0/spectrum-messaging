@@ -22,6 +22,7 @@
     "prettier": "^1.13.7"
   },
   "dependencies": {
+    "@auth0/auth0-react": "^1.0.0",
     "axios": "^0.19.2",
     "bcryptjs": "2.4.3",
     "cors": "^2.8.5",
@@ -31,6 +32,7 @@
     "mongoose": "^5.10.0",
     "mysql": "^2.18.1",
     "mysql2": "^1.7.0",
+    "react-auth0": "^0.4.1",
     "react-pro-sidebar": "^0.4.4",
     "sequelize": "^5.8.6",
     "socket.io": "^2.3.0"
