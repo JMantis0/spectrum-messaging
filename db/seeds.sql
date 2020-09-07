@@ -1,7 +1,7 @@
-INSERT INTO Users (email, password, userName)
+INSERT INTO Users (email)
 VALUES 
-("Email1@test.com", "testPassword1", "testUserName1"),
-("Email2@test.com", "testPassword2", "testUserName2");
+("Email1@test.com"),
+("Email2@test.com");
 INSERT INTO Messages (body, recipientId, senderId, createdAt)
 VALUES 
 ("Hey whats up", 2, 1, "2020-08-29 23:20:06"),
