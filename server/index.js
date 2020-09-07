@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 const http = require('http');
 const express = require('express');
 const socketio = require('socket.io');
@@ -49,3 +50,38 @@ io.on('connect', (socket) => {
 });
 
 server.listen(process.env.PORT || 5000, () => console.log(`Server has started.`));
+=======
+const express = require('express');
+const socketio = require('socket.io');
+const http = require('http');
+
+const PORT = process.env.PORT || 5000
+const router = require('./router');
+
+const app = express();
+const server = http.createServer(app);
+const io = socketio(server);
+
+io.on('connection', () => {
+    console.log("We have a new connection")
+
+    socket.on('join', ({name, room}) => {
+        console.log(name, room);
+
+    
+    })
+
+    socketio.on('disconnect', () => {
+        console.log("User has left!");
+    })
+})
+
+app.use(router);
+
+server.listen(PORT, () => console.log(`Server has started on port ${PORT}`));
+
+
+
+
+
+>>>>>>> 3197d38a4ef084aac953b57d616d9babbc26dc71
