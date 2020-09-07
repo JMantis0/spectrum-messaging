@@ -1,12 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { useAuth0 } from "@auth0/auth0-react";
-import Container from "react-bootstrap/Container";
-import {
-  ProSidebar,
-  SidebarHeader,
-  SidebarFooter,
-  SidebarContent,
-} from "react-pro-sidebar";
 import "react-pro-sidebar/dist/css/styles.css";
 import queryString from "query-string";
 import io from "socket.io-client";
@@ -18,12 +11,15 @@ import ResponsiveDrawer from "../SideNav/ResponsiveDrawer";
 let socket;
 
 const Chat = ({ location }) => {
+  //  Auth0 hook stores user info
   const { user, isAuthenticated } = useAuth0();
+  //  States
   const [name, setName] = useState("");
   const [room, setRoom] = useState("");
   const [users, setUsers] = useState("");
   const [message, setMessage] = useState("");
   const [messages, setMessages] = useState([]);
+  //  socketio Endpoint
   const ENDPOINT = "https://project-chat-application.herokuapp.com/";
 
   useEffect(() => {
