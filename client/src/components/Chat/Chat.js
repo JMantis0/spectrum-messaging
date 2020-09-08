@@ -31,10 +31,10 @@ const Chat = ({ user, isAuthenticated }) => {
     //       console.log("There was an error: ", error);
     //     });
     // }
-  });
+  }, []);
 
   return (
-    isAuthenticated && (
+    (
       <div className="outerContainer">
         <ResponsiveDrawer user={user} isAuthenticated={isAuthenticated} />
         <div className="container">

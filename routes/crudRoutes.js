@@ -52,11 +52,11 @@ router.post("/addMessage", (req, res) => {
 //  And also gets all the messages sent from the currently logged in user to the other user in the convo
 //  Thus this route expects to emails (the currently logged in user and the other conversant)
 
-router.get("/getConvo", (req, res) => {
-  const { senderId, recipientId } = req.body;
+router.get("/getConvo/:localUser/:remoteUser", (req, res) => {
+
   // console.log("senderId ", senderId);
   // console.log("recipientId ", recipientId);
-  // console.log("req.body ", req.body);
+  console.log("req.body ", req.body);
   // console.log("req", req);
   // console.log("req.params", req.params);
 
@@ -64,12 +64,12 @@ router.get("/getConvo", (req, res) => {
   db.Message.findAll({
     where: Sequelize.or(
       {
-        senderId: senderId,
-        recipientId: recipientId,
+        senderId: req.params.localUser,
+        recipientId: req.params.remoteUser,
       },
       {
-        senderId: recipientId,
-        recipientId: senderId,
+        senderId: req.params.remoteUser,
+        recipientId: req.params.localUser,
       }
     ),
   })

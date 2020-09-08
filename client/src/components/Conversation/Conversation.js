@@ -18,11 +18,11 @@ const Conversation = (props) => {
         id={Math.random()}
         onClick={() => {
           axios
-            .get("/crud/getConvo", {
-              params: {
-                senderId: localUser,
-                recipientId: remoteUser,
-              }
+            .get(`/crud/getConvo/${localUser}/${remoteUser}`, {
+              // body: {
+              //   senderId: localUser,
+              //   recipientId: remoteUser,
+              // }
             })
             .then((conversationObject) => {
               console.log(conversationObject);
