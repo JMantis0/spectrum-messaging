@@ -1,7 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useAuth0 } from "@auth0/auth0-react";
 import "react-pro-sidebar/dist/css/styles.css";
-import queryString from "query-string";
 import Input from "../Input/Input";
 import Conversation from "../Conversation/Conversation";
 import "./Chat.css";
