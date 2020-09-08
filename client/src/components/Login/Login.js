@@ -41,9 +41,6 @@ function Login({ user, isAuthenticated }) {
         ) : (
           <LoginButton></LoginButton>
         )}
-
-        <div>{JSON.stringify(user)}</div>
-        <div>{isAuthenticated}</div>
       </div>
     </div>
   );
