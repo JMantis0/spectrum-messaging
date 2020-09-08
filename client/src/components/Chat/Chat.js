@@ -1,19 +1,12 @@
 import React, { useState, useEffect, FaGem, FaHeart } from "react";
 import Container from "react-bootstrap/Container";
-import {
-  ProSidebar,
-  SidebarHeader,
-  SidebarFooter,
-  SidebarContent,
-} from "react-pro-sidebar";
 import "react-pro-sidebar/dist/css/styles.css";
 import queryString from "query-string";
 import io from "socket.io-client";
 import Input from "../Input/Input";
 import "./Chat.css";
-import '@material-ui/core/';
-import ResponsiveDrawer from "../SideNav/ResponsiveDrawer"
-
+import "@material-ui/core/";
+import ResponsiveDrawer from "../SideNav/ResponsiveDrawer";
 
 let socket;
 
@@ -62,11 +55,8 @@ const Chat = ({ location }) => {
 
   return (
     <div className="outerContainer">
-       
       <ResponsiveDrawer />
-     
-      
-    
+
       <div className="container">
         <Input
           message={message}
