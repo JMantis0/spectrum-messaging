@@ -14,6 +14,8 @@ ReactDOM.render(
     domain={domain}
     clientId={clientId}
     redirectUri={"http://localhost:3000"}
+    audience="https://jmantis-auth.us.auth0.com/api/v2/"
+    scope="read:current_user update:current_user_metadata"
   >
     <App />
   </Auth0Provider>,
