@@ -6,13 +6,14 @@ import io from "socket.io-client";
 import Input from "../Input/Input";
 import "./Chat.css";
 import "@material-ui/core/";
-import ResponsiveDrawer from "../SideNav/ResponsiveDrawer";
+import ResponsiveDrawer from "../ResponsiveDrawer/ResponsiveDrawer";
+import axios from "axios";
 
 let socket;
 
 const Chat = ({ location, user, isAuthenticated }) => {
-  
   //  States
+  const [userInDb, setUserInDb] = useState(false);
   const [name, setName] = useState("");
   const [room, setRoom] = useState("");
   const [users, setUsers] = useState("");
@@ -22,6 +23,22 @@ const Chat = ({ location, user, isAuthenticated }) => {
   const ENDPOINT = "https://project-chat-application.herokuapp.com/";
 
   useEffect(() => {
+    console.log("inside Chat.js useEffect");
+    console.log("user", user);
+    console.log("isAuthenticated", isAuthenticated);
+    console.log("userInDb", userInDb);
+
+    if (!userInDb) {
+      axios
+        .post("/crud/checkIfUserExistsAndCreate", { email: user.email })
+        .then((response) => {
+          console.log(
+            "Attempted to check if user exists and create one if not: ",
+            response
+          );
+        });
+    }
+
     const { name, room } = queryString.parse(location.search);
 
     socket = io(ENDPOINT);

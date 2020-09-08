@@ -1,7 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
-import LoginButton from "../LoginButton/LoginButton"
+import LoginButton from "../LoginButton/LoginButton";
 import "./Login.css";
 
 // This is the javascript for the remember me button.
@@ -27,13 +27,24 @@ import "./Login.css";
 //   }
 // }
 
-function Login( { user }) {
+function Login({ user, isAuthenticated }) {
+  console.log(isAuthenticated);
   return (
     <div className="LoginOuterContainer">
       <div className="LoginInnerContainer">
-        <h1 className="heading">Login</h1>
-        <LoginButton></LoginButton>
-        {JSON.stringify(user)}
+        <h1 className="heading">
+          {isAuthenticated ? `Welcome ${user.email}` : "Click to Login"}
+        </h1>
+        {isAuthenticated ? (
+          <Link to="/chat">
+            <button className="button">chat</button>
+          </Link>
+        ) : (
+          <LoginButton></LoginButton>
+        )}
+
+        <div>{JSON.stringify(user)}</div>
+        <div>{isAuthenticated}</div>
       </div>
     </div>
   );

@@ -108,7 +108,11 @@ function ResponsiveDrawer(props) {
             Spectrum Messaging 😑
           </Typography>
           <LogoutButton />
-          <button onClick={() => console.log(props.user)}>Console the user data</button>
+          <button onClick={() => {
+            console.log(props.user);
+            console.log("isAuthenticated", props.isAuthenticated)
+          }
+        }>Console the user data</button>
         </Toolbar>
       </AppBar>
       <nav className={classes.drawer} aria-label="mailbox folders">

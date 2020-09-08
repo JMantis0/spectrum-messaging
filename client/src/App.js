@@ -8,11 +8,15 @@ import { useAuth0 } from "@auth0/auth0-react";
 import { BrowserRouter as Router, Route } from "react-router-dom";
 
 const App = () => {
-  const { user, isAuthenticated } = useAuth0();
+  const { user, isAuthenticated, isLoading } = useAuth0();
   return (
     <Router>
       <Route exact path="/">
-        <Login user={user} />
+        <Login
+          user={user}
+          isAuthenticated={isAuthenticated}
+          isLoading={isLoading}
+        />
       </Route>
       <Route exact path="/join" component={Join} />
       <Route exact path="/chat">

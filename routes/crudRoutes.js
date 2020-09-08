@@ -13,18 +13,6 @@ router.get("/getAllBetweenTwoUsers", (req, res) => {
 
 router.post("/createUser", (req, res) => {
   console.log("backend inside /createUser Route");
-  const pwRegEx = new RegExp(
-    "^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[+!@#$%^&*])(?=.{8,})"
-  );
-  const passwordPasses = pwRegEx.test(req.body.password);
-  if (!passwordPasses) {
-    res.status(400).json({
-      msg:
-        "Password must have:\n    - minimum 8 characters\n    - one number\n    - one lowercase letter\n    - one uppercase letter\n    - one special-character",
-      formName: "",
-    });
-    return;
-  }
 
   db.User.create({
     email: req.body.email,
@@ -116,7 +104,7 @@ router.get("/loginAttempt", (req, res) => {
 });
 
 //  Check to see if the user exists
-router.get("/checkIfUserExistsAndCreate", (req, res) => {
+router.post("/checkIfUserExistsAndCreate", (req, res) => {
   console.log("inside /checkIfUserExistsAndCreate");
   db.User.findOne({
     where: {
@@ -124,12 +112,24 @@ router.get("/checkIfUserExistsAndCreate", (req, res) => {
     },
   })
     .then((response) => {
-      if (response === null) {
-        console.log("No such user found");
-        axios.post("/createUser", {})
-      }
       console.log(response);
-      res.send(response);
+      if (response === null) {
+        db.User.create({
+          email: req.body.email,
+        })
+          .then((response) => {
+            console.log("attempt to create new user", response);
+            res.send(response);
+
+          })
+          .catch((error) => {
+            console.log("There was an error creating new user: ", error);
+            res.send(error);
+          }
+          );
+      } else {
+        res.send("user exists");
+      }
     })
     .catch((error) => {
       console.log(error);
