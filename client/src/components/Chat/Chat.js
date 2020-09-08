@@ -55,67 +55,9 @@ const Chat = ({ location }) => {
 
   return (
     <div className="outerContainer">
-<<<<<<< HEAD
-      <ProSidebar>
-        <SidebarHeader>
-          {
-            <div className="column">
-              <img src="https://www.paulekman.com/wp-content/uploads/2018/07/PAFF_040918_emotionspectrum2-609x419-1280x720.jpg"></img>
-              <p>hello!</p>
-              <p>I like turtles</p>
-              <p>github.mindyabidness</p>
-              <p>LinkedIn more like blinked 182</p>
-              <button>viewprofile</button>
-            </div>
-          }
-        </SidebarHeader>
-        <SidebarContent>
-          {<p>yo you mad stupid, B! This AIN'T A BIO IT'S A CHATROOM BOY!</p>}
-        </SidebarContent>
-        <SidebarFooter>
-          {
-            <ul>
-              These Yo Conversations Cuz
-              <li>person 1</li>
-              <li>person 2</li>
-              <li>person 3</li>
-              <li>person 4</li>
-              <li>person 5</li>
-              <li>person 6</li>
-              <li>person 7</li>
-              <li>person 1</li>
-              <li>person 2</li>
-              <li>person 3</li>
-              <li>person 4</li>
-              <li>person 5</li>
-              <li>person 6</li>
-              <li>person 7</li>
-              <li>person 1</li>
-              <li>person 2</li>
-              <li>person 3</li>
-              <li>person 4</li>
-              <li>person 5</li>
-              <li>person 6</li>
-              <li>person 7</li>
-              <li>person 1</li>
-              <li>person 2</li>
-              <li>person 3</li>
-              <li>person 4</li>
-              <li>person 5</li>
-              <li>person 6</li>
-              <li>person 7</li>
-            </ul>
-          }
-        </SidebarFooter>
-      </ProSidebar>
-      <div className="chatBox">
-        <p className="toUser">{messages.text}</p>
-        <p className="fromChat">PUT ON TOP THE MOTHER EFFIN THANG BREH</p>
-=======
       <ResponsiveDrawer />
 
       <div className="container">
->>>>>>> mern_setup
         <Input
           message={message}
           setMessage={setMessage}

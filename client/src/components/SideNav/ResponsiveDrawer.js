@@ -67,7 +67,7 @@ function ResponsiveDrawer(props) {
       <div className={classes.toolbar} />
       <Divider />
       <List>
-        {['Spectrum Messaging'].map((text, index) => (
+        {['Spe3ctrum Messaging'].map((text, index) => (
           <ListItem button key={text}>
             
             <ListItemText primary={text} />
