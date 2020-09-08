@@ -53,6 +53,12 @@ router.post("/addMessage", (req, res) => {
 
 router.get("/getConvo", (req, res) => {
   const { senderId, recipientId } = req.body;
+  console.log("senderId ", senderId);
+  console.log("recipientId ", recipientId);
+  console.log("req.body ", req.body)
+  console.log("req", req)
+  console.log("req.params", req.params);
+
 
   // SELECT * FROM MESSAGES WHERE (senderId = senderId AND recipientId = rId) OR (senderId = rId AND recipientId = senderId);
   db.Message.findAll({

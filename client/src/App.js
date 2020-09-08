@@ -20,7 +20,7 @@ const App = () => {
       </Route>
       <Route exact path="/join" component={Join} />
       <Route exact path="/chat">
-        <Chat location="" user={user} isAuthenticated={isAuthenticated} />
+        <Chat user={user} isAuthenticated={isAuthenticated} />
       </Route>
     </Router>
   );
