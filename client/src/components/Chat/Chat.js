@@ -1,85 +1,50 @@
-import React, { useState, useEffect, FaGem, FaHeart } from "react";
-import Container from "react-bootstrap/Container";
-import {
-  ProSidebar,
-  SidebarHeader,
-  SidebarFooter,
-  SidebarContent,
-} from "react-pro-sidebar";
+import React, { useState, useEffect } from "react";
+import { useAuth0 } from "@auth0/auth0-react";
 import "react-pro-sidebar/dist/css/styles.css";
 import queryString from "query-string";
-import io from "socket.io-client";
 import Input from "../Input/Input";
+import Conversation from "../Conversation/Conversation";
 import "./Chat.css";
-import '@material-ui/core/';
-import ResponsiveDrawer from "../SideNav/ResponsiveDrawer"
+import "@material-ui/core/";
+import ResponsiveDrawer from "../ResponsiveDrawer/ResponsiveDrawer";
+import axios from "axios";
 
-
-let socket;
-
-const Chat = ({ location }) => {
-  const [name, setName] = useState("");
-  const [room, setRoom] = useState("");
-  const [users, setUsers] = useState("");
-  const [message, setMessage] = useState("");
-  const [messages, setMessages] = useState([]);
-  const ENDPOINT = "https://project-chat-application.herokuapp.com/";
+const Chat = ({ user, isAuthenticated }) => {
+  //  States
+  const [userInDb, setUserInDb] = useState(false);
 
   useEffect(() => {
-    const { name, room } = queryString.parse(location.search);
+    console.log("inside Chat.js useEffect");
+    console.log("user", user);
+    console.log("isAuthenticated", isAuthenticated);
+    console.log("userInDb", userInDb);
 
-    socket = io(ENDPOINT);
-
-    setRoom(room);
-    setName(name);
-
-    socket.emit("join", { name, room }, (error) => {
-      if (error) {
-        alert(error);
-      }
-    });
-  }, [ENDPOINT, location.search]);
-
-  useEffect(() => {
-    socket.on("message", (message) => {
-      setMessages((messages) => [...messages, message]);
-    });
-
-    socket.on("roomData", ({ users }) => {
-      setUsers(users);
-    });
-  }, []);
-
-  const sendMessage = (event) => {
-    event.preventDefault();
-
-    if (message) {
-      socket.emit("sendMessage", message, () => setMessage(""));
-      console.log(message);
-      console.log(messages);
-    }
-  };
+    // if (!userInDb) {
+    //   axios
+    //     .post("/crud/checkIfUserExistsAndCreate", { email: user.email })
+    //     .then((response) => {
+    //       console.log(
+    //         "Attempted to check if user exists and create one if not: ",
+    //         response
+    //       );
+    //       setUserInDb(true);
+    //     })
+    //     .catch((error) => {
+    //       console.log("There was an error: ", error);
+    //     });
+    // }
+  });
 
   return (
-    <div className="outerContainer">
-       
-      <ResponsiveDrawer />
-     
-      
-    
-      <div className="container">
-        <Input
-          message={message}
-          setMessage={setMessage}
-          sendMessage={sendMessage}
-        />
-        {message}
+    isAuthenticated && (
+      <div className="outerContainer">
+        <ResponsiveDrawer user={user} isAuthenticated={isAuthenticated} />
+        <div className="container">
+          <Conversation />
+          <Input />
+        </div>
       </div>
-      <Container>
-        <p id="left">PUT ON TOP THE MOTHER EFFIN THANG BREH</p>
-        <p id="right">PUT ON TOP THE MOTHER EFFIN THANG BREH</p>
-      </Container>
-    </div>
+    )
   );
 };
 

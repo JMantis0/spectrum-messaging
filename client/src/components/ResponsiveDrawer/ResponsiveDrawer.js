@@ -16,6 +16,7 @@ import MenuIcon from '@material-ui/icons/Menu';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
+import LogoutButton from '../LogoutButton/LogoutButton'
 
 const drawerWidth = 240;
 
@@ -106,6 +107,12 @@ function ResponsiveDrawer(props) {
           <Typography variant="h6" noWrap>
             Spectrum Messaging 😑
           </Typography>
+          <LogoutButton />
+          <button onClick={() => {
+            console.log(props.user);
+            console.log("isAuthenticated", props.isAuthenticated)
+          }
+        }>Console the user data</button>
         </Toolbar>
       </AppBar>
       <nav className={classes.drawer} aria-label="mailbox folders">

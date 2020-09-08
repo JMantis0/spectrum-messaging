@@ -13,23 +13,9 @@ router.get("/getAllBetweenTwoUsers", (req, res) => {
 
 router.post("/createUser", (req, res) => {
   console.log("backend inside /createUser Route");
-  const pwRegEx = new RegExp(
-    "^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[+!@#$%^&*])(?=.{8,})"
-  );
-  const passwordPasses = pwRegEx.test(req.body.password);
-  if (!passwordPasses) {
-    res.status(400).json({
-      msg:
-        "Password must have:\n    - minimum 8 characters\n    - one number\n    - one lowercase letter\n    - one uppercase letter\n    - one special-character",
-      formName: "",
-    });
-    return;
-  }
 
   db.User.create({
     email: req.body.email,
-    password: req.body.password,
-    userName: req.body.userName,
   })
     .then((response) => {
       res.send(response);
@@ -46,7 +32,7 @@ router.post("/createUser", (req, res) => {
 //  That would be an interesting async challenge!
 
 router.post("/addMessage", (req, res) => {
-  console.log(req)
+  console.log(req);
   db.Message.create({
     body: req.body.message,
     recipientId: req.body.recipientId,
@@ -67,6 +53,12 @@ router.post("/addMessage", (req, res) => {
 
 router.get("/getConvo", (req, res) => {
   const { senderId, recipientId } = req.body;
+  console.log("senderId ", senderId);
+  console.log("recipientId ", recipientId);
+  console.log("req.body ", req.body)
+  console.log("req", req)
+  console.log("req.params", req.params);
+
 
   // SELECT * FROM MESSAGES WHERE (senderId = senderId AND recipientId = rId) OR (senderId = rId AND recipientId = senderId);
   db.Message.findAll({
@@ -97,7 +89,58 @@ router.get("/getConvo", (req, res) => {
 
 //  Might need a route to add multiple messages
 router.post("/addManyMessages", (req, res) => {
-  res.send("Whoa, that's the addManyMessages route.")
-})
+  res.send("Whoa, that's the addManyMessages route.");
+});
+
+router.get("/loginAttempt", (req, res) => {
+  db.User.find({
+    where: {
+      email: req.body.email,
+      password: req.body.password,
+    },
+  })
+    .then((userIfExists) => {
+      console.log(userIfExists);
+      res.status(202).json(userIfExists);
+    })
+    .catch((error) => {
+      console.log("There was an error", error);
+      res.status(404).send(error);
+    });
+});
+
+//  Check to see if the user exists
+router.post("/checkIfUserExistsAndCreate", (req, res) => {
+  console.log("inside /checkIfUserExistsAndCreate");
+  db.User.findOne({
+    where: {
+      email: req.body.email,
+    },
+  })
+    .then((response) => {
+      console.log(response);
+      if (response === null) {
+        db.User.create({
+          email: req.body.email,
+        })
+          .then((response) => {
+            console.log("attempt to create new user", response);
+            res.send(response);
+
+          })
+          .catch((error) => {
+            console.log("There was an error creating new user: ", error);
+            res.send(error);
+          }
+          );
+      } else {
+        res.send("user exists");
+      }
+    })
+    .catch((error) => {
+      console.log(error);
+      res.send(error);
+    });
+});
 
 module.exports = router;

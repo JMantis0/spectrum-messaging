@@ -1,24 +1,27 @@
 import React from "react";
 import logo from "./logo.svg";
 import "./App.css";
-import TheLordsComponent from "./components/Lord/TheLordsComponent";
-import SignUp from "./components/SignUp/SignUp";
 import Login from "./components/Login/Login";
 import Chat from "./components/Chat/Chat";
 import Join from "./components/Join/Join";
-
+import { useAuth0 } from "@auth0/auth0-react";
 import { BrowserRouter as Router, Route } from "react-router-dom";
 
 const App = () => {
+  const { user, isAuthenticated, isLoading } = useAuth0();
   return (
     <Router>
-      <Route path="lord">
-        <TheLordsComponent />
+      <Route exact path="/">
+        <Login
+          user={user}
+          isAuthenticated={isAuthenticated}
+          isLoading={isLoading}
+        />
       </Route>
-      <Route path="/" exact component={SignUp} />
-      <Route path="/login" exact component={Login} />
-      <Route path="/join" component={Join} />
-      <Route path="/chat" component={Chat} />
+      <Route exact path="/join" component={Join} />
+      <Route exact path="/chat">
+        <Chat user={user} isAuthenticated={isAuthenticated} />
+      </Route>
     </Router>
   );
 };
