@@ -7,14 +7,17 @@ module.exports = function(sequelize, DataTypes) {
         len: [1],
       },
     },
-    recipient: {
-      type: DataTypes.TEXT,
-      allowNull: false,
-    },
   });
 
   Message.associate = function(models) {
     Message.belongsTo(models.User, {
+      as: "sender",
+      foreignKey: {
+        allowNull: false,
+      },
+    });
+    Message.belongsTo(models.User, {
+      as: "recipient",
       foreignKey: {
         allowNull: false,
       },

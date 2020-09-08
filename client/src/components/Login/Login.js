@@ -98,9 +98,9 @@ function Login() {
         </div>
         <div>
           <input
-            placeholder="User Name"
+            placeholder="Password"
             className="LoginInput"
-            type="text"
+            type="password"
             onChange={(event) => setUserName(event.target.value)}
           />
         </div>

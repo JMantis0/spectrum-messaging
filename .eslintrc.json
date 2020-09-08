@@ -20,6 +20,7 @@
     "indent": ["warn", 2],
     "no-duplicate-case": "warn",
     "no-else-return": "warn",
+    "comma-dangle": "error",
     "no-empty": "warn",
     "no-empty-function": "warn",
     "no-extra-semi": "warn",

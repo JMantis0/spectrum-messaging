@@ -1,16 +1,12 @@
 import React, { useState, useEffect } from "react";
 import Container from "react-bootstrap/Container";
-import {
-  ProSidebar,
-  SidebarHeader,
-  SidebarFooter,
-  SidebarContent,
-} from "react-pro-sidebar";
 import "react-pro-sidebar/dist/css/styles.css";
 import queryString from "query-string";
 import io from "socket.io-client";
 import Input from "../Input/Input";
 import "./Chat.css";
+import "@material-ui/core/";
+import ResponsiveDrawer from "../SideNav/ResponsiveDrawer";
 
 let socket;
 
@@ -59,6 +55,7 @@ const Chat = ({ location }) => {
 
   return (
     <div className="outerContainer">
+<<<<<<< HEAD
       <ProSidebar>
         <SidebarHeader>
           {
@@ -114,12 +111,17 @@ const Chat = ({ location }) => {
       <div className="chatBox">
         <p className="toUser">{messages.text}</p>
         <p className="fromChat">PUT ON TOP THE MOTHER EFFIN THANG BREH</p>
+=======
+      <ResponsiveDrawer />
+
+      <div className="container">
+>>>>>>> mern_setup
         <Input
           message={message}
           setMessage={setMessage}
           sendMessage={sendMessage}
         />
-        {messages.text}
+        {message}
       </div>
     </div>
   );
