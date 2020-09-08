@@ -3,6 +3,7 @@ const db = require("../models");
 const env = require("dotenv");
 const axios = require("axios");
 const bcrypt = require("bcryptjs");
+const Sequelize = require("sequelize");
 
 //  This route will get all the messages existing between two users.
 //  Accordingly, the request object is expected to have the two users.
@@ -53,33 +54,31 @@ router.post("/addMessage", (req, res) => {
 
 router.get("/getConvo", (req, res) => {
   const { senderId, recipientId } = req.body;
-  console.log("senderId ", senderId);
-  console.log("recipientId ", recipientId);
-  console.log("req.body ", req.body)
-  console.log("req", req)
-  console.log("req.params", req.params);
-
+  // console.log("senderId ", senderId);
+  // console.log("recipientId ", recipientId);
+  // console.log("req.body ", req.body);
+  // console.log("req", req);
+  // console.log("req.params", req.params);
 
   // SELECT * FROM MESSAGES WHERE (senderId = senderId AND recipientId = rId) OR (senderId = rId AND recipientId = senderId);
   db.Message.findAll({
-    $or: [
+    where: Sequelize.or(
       {
-        where: {
-          senderId: senderId,
-          recipientId: recipientId,
-        },
+        senderId: senderId,
+        recipientId: recipientId,
       },
       {
-        where: {
-          senderId: recipientId,
-          recipientId: senderId,
-        },
-      },
-    ],
+        senderId: recipientId,
+        recipientId: senderId,
+      }
+    ),
   })
     .then((conversation) => {
-      console.log("crudRoutes.js response: ", conversation);
-      res.status(202).send(conversation);
+      // console.log("crudRoutes.js response: ", conversation);
+      const sortedConvo = conversation.sort((a, b) => {
+        return a.dataValues.createdAt < b.dataValues.createdAt ? -1 : 1;
+      });
+      res.status(202).send(sortedConvo);
     })
     .catch((error) => {
       console.log("There was an error: ".error);
@@ -126,13 +125,11 @@ router.post("/checkIfUserExistsAndCreate", (req, res) => {
           .then((response) => {
             console.log("attempt to create new user", response);
             res.send(response);
-
           })
           .catch((error) => {
             console.log("There was an error creating new user: ", error);
             res.send(error);
-          }
-          );
+          });
       } else {
         res.send("user exists");
       }
