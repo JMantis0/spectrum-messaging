@@ -5,8 +5,28 @@
   height: 100vh;
   background-color: #1a1a1d;
 }
-#right {
+
+.toUser {
   float: right;
+}
+
+.fromChat {
+  float: left;
+}
+
+.input {
+  font-size: 12px;
+}
+
+.sendButton {
+  text-align: center;
+  margin: auto;
+  padding: 10px;
+  font-size: 12px;
+}
+
+.form {
+  height: 40px;
 }
 .container {
   display: flex;
@@ -17,7 +37,14 @@
   height: 60%;
   width: 35%;
 }
-
+.chatBox {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  background: #ffffff;
+  height: 100%;
+  width: 100%;
+}
 @media (min-width: 320px) and (max-width: 480px) {
   .outerContainer {
     height: 100%;

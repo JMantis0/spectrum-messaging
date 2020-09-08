@@ -63,6 +63,7 @@ function SignUp() {
   return (
     <div className="signUpOuterContainer">
       <div className="signUpInnerContainer">
+        <img src="https://www.paulekman.com/wp-content/uploads/2018/07/PAFF_040918_emotionspectrum2-609x419-1280x720.jpg"></img>
         <h1 className="heading">Sign Up</h1>
 
         {/* <button onClick={consoleState}>Console Logs</button> */}

@@ -111,7 +111,9 @@ const Chat = ({ location }) => {
           }
         </SidebarFooter>
       </ProSidebar>
-      <div className="container">
+      <div className="chatBox">
+        <p className="toUser">{messages.text}</p>
+        <p className="fromChat">PUT ON TOP THE MOTHER EFFIN THANG BREH</p>
         <Input
           message={message}
           setMessage={setMessage}
@@ -119,10 +121,6 @@ const Chat = ({ location }) => {
         />
         {messages.text}
       </div>
-      <Container>
-        <p id="left">PUT ON TOP THE MOTHER EFFIN THANG BREH</p>
-        <p id="right">PUT ON TOP THE MOTHER EFFIN THANG BREH</p>
-      </Container>
     </div>
   );
 };

@@ -85,6 +85,7 @@ function Login() {
   return (
     <div className="LoginOuterContainer">
       <div className="LoginInnerContainer">
+        <img src="https://www.paulekman.com/wp-content/uploads/2018/07/PAFF_040918_emotionspectrum2-609x419-1280x720.jpg"></img>
         <h1 className="heading">Login</h1>
         {/* <button onClick={consoleState}>Console Logs</button> */}
         <div>
