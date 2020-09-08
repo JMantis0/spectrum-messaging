@@ -13,7 +13,7 @@ ReactDOM.render(
   <Auth0Provider
     domain={domain}
     clientId={clientId}
-    redirectUri={"https://spectrum-messaging.herokuapp.com/"}
+    redirectUri="https://spectrum-messaging.herokuapp.com/"
     audience="https://jmantis-auth.us.auth0.com/api/v2/"
     scope="read:current_user update:current_user_metadata"
   >
