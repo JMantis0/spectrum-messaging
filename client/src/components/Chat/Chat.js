@@ -10,15 +10,14 @@ import Profile from "../Profile/Profile"
 
 const Chat = ({ user, isAuthenticated, isLoading }) => {
   //  States
-  const [userInDb, setUserInDb] = useState(false);
 
   useEffect(() => {
     console.log("inside Chat.js useEffect");
     console.log("user", user);
     console.log("isAuthenticated", isAuthenticated);
-    console.log("userInDb", userInDb);
+  
 
-    if (!userInDb && isAuthenticated) {
+    if (isAuthenticated) {
       axios
         .post("/crud/checkIfUserExistsAndCreate", { email: user.email })
         .then((response) => {
@@ -26,7 +25,6 @@ const Chat = ({ user, isAuthenticated, isLoading }) => {
             "Attempted to check if user exists and create one if not: ",
             response
           );
-          setUserInDb(true);
         })
         .catch((error) => {
           console.log("There was an error: ", error);
