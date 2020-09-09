@@ -2,7 +2,6 @@ import React from "react";
 import "./App.css";
 import Login from "./components/Login/Login";
 import Chat from "./components/Chat/Chat";
-import Join from "./components/Join/Join";
 import { useAuth0 } from "@auth0/auth0-react";
 import { BrowserRouter as Router, Route } from "react-router-dom";
 
@@ -17,7 +16,6 @@ const App = () => {
           isLoading={isLoading}
         />
       </Route>
-      <Route exact path="/join" component={Join} />
       <Route exact path="/chat">
         <Chat user={user} isAuthenticated={isAuthenticated} />
       </Route>
