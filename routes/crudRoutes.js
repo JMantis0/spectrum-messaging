@@ -140,4 +140,14 @@ router.post("/checkIfUserExistsAndCreate", (req, res) => {
     });
 });
 
+router.get("/getAllUsers", (req, res) => {
+  db.User.findAll({})
+  .then(users => {
+    console.log(users);
+    res.send(users)
+  }).catch(err => {
+    console.log("There was an error: ", err)
+  });
+});
+
 module.exports = router;
