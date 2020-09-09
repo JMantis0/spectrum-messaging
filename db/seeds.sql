@@ -7,7 +7,7 @@ VALUES
 ("Email5@test.com"),
 ("Email6@test.com");
 
-INSERT INTO Messages (body, recipientId, senderId, createdAt)
+INSERT INTO Messages (body, recipientEmail, senderEmail, createdAt)
 VALUES 
 ("Hey whats up", "Email2@test.com", "Email1@test.com", "2020-08-29 23:20:06"),
 ("Not much", "Email1@test.com", "Email2@test.com", "2020-08-29 23:20:07"),

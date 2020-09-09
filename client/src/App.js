@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "./App.css";
 import Login from "./components/Login/Login";
 import Chat from "./components/Chat/Chat";
@@ -7,6 +7,13 @@ import { BrowserRouter as Router, Route } from "react-router-dom";
 
 const App = () => {
   const { user, isAuthenticated, isLoading } = useAuth0();
+
+  // useEffect(() => {
+  //   console.log("user", user);
+  //   console.log("isAuthenticated", isAuthenticated);
+  //   console.log("isLoading", isLoading);
+  // })
+
   return (
     <Router>
       <Route exact path="/">
@@ -17,7 +24,7 @@ const App = () => {
         />
       </Route>
       <Route exact path="/chat">
-        <Chat user={user} isAuthenticated={isAuthenticated} />
+        <Chat user={user} isAuthenticated={isAuthenticated} isLoading={isLoading} />
       </Route>
     </Router>
   );

@@ -2,6 +2,7 @@ const express = require("express");
 const http = require("http");
 const path = require("path");
 const cors = require('cors');
+const logger = require("morgan");
 
 
 const PORT = process.env.PORT || 5000;
@@ -9,7 +10,7 @@ const app = express();
 const server = http.createServer(app);
 const apiRoutes = require("./routes/apiRoutes");
 const crudRoutes = require("./routes/crudRoutes")
-
+app.use(logger("dev"));
 // Define middleware here
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());

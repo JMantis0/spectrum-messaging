@@ -54,30 +54,27 @@ router.post("/addMessage", (req, res) => {
 
 router.get("/getConvo/:localUser/:remoteUser", (req, res) => {
 
-  // console.log("senderId ", senderId);
-  // console.log("recipientId ", recipientId);
-  console.log("req.body ", req.body);
-  // console.log("req", req);
-  // console.log("req.params", req.params);
-
+console.log(req.params.localUser);
+console.log(req.params.remoteUser);
   // SELECT * FROM MESSAGES WHERE (senderId = senderId AND recipientId = rId) OR (senderId = rId AND recipientId = senderId);
   db.Message.findAll({
     where: Sequelize.or(
       {
-        senderId: req.params.localUser,
-        recipientId: req.params.remoteUser,
+        senderEmail: req.params.localUser,
+        recipientEmail: req.params.remoteUser,
       },
       {
-        senderId: req.params.remoteUser,
-        recipientId: req.params.localUser,
+        senderEmail: req.params.remoteUser,
+        recipientEmail: req.params.localUser,
       }
     ),
   })
     .then((conversation) => {
-      // console.log("crudRoutes.js response: ", conversation);
+      console.log("crudRoutes.js response: ", conversation);
       const sortedConvo = conversation.sort((a, b) => {
         return a.dataValues.createdAt < b.dataValues.createdAt ? -1 : 1;
       });
+      console.log("Sorted Convo",sortedConvo)
       res.status(202).send(sortedConvo);
     })
     .catch((error) => {

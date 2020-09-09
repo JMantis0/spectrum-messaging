@@ -6,8 +6,9 @@ import "./Chat.css";
 import "@material-ui/core/";
 import ResponsiveDrawer from "../ResponsiveDrawer/ResponsiveDrawer";
 import axios from "axios";
+import Profile from "../Profile/Profile" 
 
-const Chat = ({ user, isAuthenticated }) => {
+const Chat = ({ user, isAuthenticated, isLoading }) => {
   //  States
   const [userInDb, setUserInDb] = useState(false);
 
@@ -17,7 +18,7 @@ const Chat = ({ user, isAuthenticated }) => {
     console.log("isAuthenticated", isAuthenticated);
     console.log("userInDb", userInDb);
 
-    if (!userInDb) {
+    if (!userInDb && isAuthenticated) {
       axios
         .post("/crud/checkIfUserExistsAndCreate", { email: user.email })
         .then((response) => {
@@ -31,12 +32,13 @@ const Chat = ({ user, isAuthenticated }) => {
           console.log("There was an error: ", error);
         });
     }
-  }, [userInDb]);
+  }, [isAuthenticated]);
 
   return (
     (
       <div className="outerContainer">
-        <ResponsiveDrawer user={user} isAuthenticated={isAuthenticated} />
+        {/* <Profile user={user} isAuthenticated={isAuthenticated} isLoading={isLoading} /> */}
+        <ResponsiveDrawer user={user} isAuthenticated={isAuthenticated} isLoading={isLoading}/>
         <div className="container">
           <Conversation />
           <Input />
