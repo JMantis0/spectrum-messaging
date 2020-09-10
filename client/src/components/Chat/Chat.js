@@ -10,25 +10,28 @@ import Profile from "../Profile/Profile";
 
 const Chat = ({ userList, setUserList, user, isAuthenticated, isLoading }) => {
   //  States
+  let [localUser, setLocalUser] = useState("Email1@test.com");
+  let [remoteUser, setRemoteUser] = useState("Email2@test.com");
+  let [conversation, setConversation] = useState([]);
 
   useEffect(() => {
     console.log("inside Chat.js useEffect");
     console.log("user", user);
     console.log("isAuthenticated", isAuthenticated);
 
-    // if (isAuthenticated) {
-    // axios
-    //   .post("/crud/checkIfUserExistsAndCreate", { email: user.email })
-    //   .then((response) => {
-    //     console.log(
-    //       "Attempted to check if user exists and create one if not: ",
-    //       response
-    //     );
-    //   })
-    //   .catch((error) => {
-    //     console.log("There was an error: ", error);
-    //   });
-
+    if(isAuthenticated) {
+    axios
+      .post("/crud/checkIfUserExistsAndCreate", { email: user.email })
+      .then((response) => {
+        console.log(
+          "Attempted to check if user exists and create one if not: ",
+          response
+        );
+      })
+      .catch((error) => {
+        console.log("There was an error: ", error);
+      });
+    }
     axios
       .get("/crud/getAllUsers")
       .then((users) => {
@@ -44,20 +47,32 @@ const Chat = ({ userList, setUserList, user, isAuthenticated, isLoading }) => {
       .catch((err) => {
         console.log("There was an error: ", err);
       });
-    // }
+    
   }, [isAuthenticated]);
+
+  useEffect(() => {
+    axios
+      .get(`/crud/getConvo/${localUser}/${remoteUser}`)
+      .then((conversationObject) => {
+        console.log(conversationObject);
+        setConversation(conversationObject.data);
+      });
+  }, [remoteUser]);
 
   return (
     <div className="outerContainer">
       {/* <Profile user={user} isAuthenticated={isAuthenticated} isLoading={isLoading} /> */}
       <ResponsiveDrawer
+        localUser={localUser}
+        remoteUser={remoteUser}
+        setRemoteUser={setRemoteUser}
         userList={userList}
         user={user}
         isAuthenticated={isAuthenticated}
         isLoading={isLoading}
       />
       <div className="container">
-        <Conversation />
+        <Conversation conversation={conversation} localUser={localUser} remoteUser={remoteUser} />
         <Input />
       </div>
     </div>

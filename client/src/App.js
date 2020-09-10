@@ -9,12 +9,6 @@ const App = () => {
   const { user, isAuthenticated, isLoading } = useAuth0();
   const [userList, setUserList] = useState([]);
 
-  // useEffect(() => {
-  //   console.log("user", user);
-  //   console.log("isAuthenticated", isAuthenticated);
-  //   console.log("isLoading", isLoading);
-  // })
-
   return (
     <Router>
       <Route exact path="/">
