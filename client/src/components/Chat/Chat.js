@@ -9,8 +9,8 @@ import axios from "axios";
 
 const Chat = ({ userList, setUserList, user, isAuthenticated, isLoading }) => {
   //  States
-  let [localUser, setLocalUser] = useState("Email1@test.com");
-  let [remoteUser, setRemoteUser] = useState("Email2@test.com");
+  let [localUser, setLocalUser] = useState("");
+  let [remoteUser, setRemoteUser] = useState("");
   let [conversation, setConversation] = useState([]);
 
   useEffect(() => {

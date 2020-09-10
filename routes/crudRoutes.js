@@ -36,9 +36,9 @@ router.post("/addMessage", (req, res) => {
   // console.log("req", req);
   console.log("req.body", req.body);
   db.Message.create({
-    body: req.body.message,
+    body: req.body.body,
     recipientEmail: req.body.recipientEmail,
-    senderEmail: req.body.senderEmail,g
+    senderEmail: req.body.senderEmail,
   })
     .then((response) => {
       res.send(response);

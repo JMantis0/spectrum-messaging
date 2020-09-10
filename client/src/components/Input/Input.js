@@ -1,7 +1,7 @@
 import React from "react";
 import axios from "axios";
 import "./Input.css";
-import { useRef } from "react";
+import { useRef, useState } from "react";
 
 const Input = ({ localUser, remoteUser }) => {
   const inputRef = useRef();
@@ -41,11 +41,18 @@ const Input = ({ localUser, remoteUser }) => {
       <button
         className="sendButton"
         onClick={(e) => {
+          e.preventDefault();
           console.log(inputRef.current.value);
           axios
             .post("/api/analyze", { text: inputRef.current.value })
-            .then((response) => console.log(response));
+            .then((response) => console.log(response))
+            .catch((err) => {
+              console.log("There was an error: ", err);
+            });
+          console.log("localUser: ", localUser);
+          console.log("remoteUser: ", remoteUser);
           addMessage();
+          
         }}
       >
         Send
