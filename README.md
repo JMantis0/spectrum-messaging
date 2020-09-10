@@ -19,6 +19,10 @@ As a person who stuggles to understand the emotional context of a text message, 
 # Usage
 Once the app is launched in the browser, login or sign-up on the authorization page. Once you're in, feel free to type in the chat input and send and receive messages. Left click on the page and navigate to the inspect tab, where the tonality will be described in the console log. 
 
+![landingPage](https://github.com/JMantis0/spectrum-messaging/blob/mern_setup/login.png)
+
+![login](https://github.com/JMantis0/spectrum-messaging/blob/mern_setup/auth0.png)
+
 
 # Deployed Link
 https://spectrum-messaging.herokuapp.com/
