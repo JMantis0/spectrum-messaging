@@ -1,6 +1,5 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
-import axios from "axios";
 import LoginButton from "../LoginButton/LoginButton";
 import "./Login.css";
 
@@ -42,9 +41,6 @@ function Login({ user, isAuthenticated }) {
         ) : (
           <LoginButton></LoginButton>
         )}
-
-        <div>{JSON.stringify(user)}</div>
-        <div>{isAuthenticated}</div>
       </div>
     </div>
   );

@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
 
 //  I want this component to know the two users, and have all the messages between them.
@@ -18,11 +18,11 @@ const Conversation = (props) => {
         id={Math.random()}
         onClick={() => {
           axios
-            .get("/crud/getConvo", {
-              params: {
-                senderId: localUser,
-                recipientId: remoteUser,
-              }
+            .get(`/crud/getConvo/${localUser}/${remoteUser}`, {
+              // body: {
+              //   senderId: localUser,
+              //   recipientId: remoteUser,
+              // }
             })
             .then((conversationObject) => {
               console.log(conversationObject);
