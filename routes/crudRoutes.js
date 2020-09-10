@@ -33,11 +33,12 @@ router.post("/createUser", (req, res) => {
 //  That would be an interesting async challenge!
 
 router.post("/addMessage", (req, res) => {
-  console.log(req);
+  // console.log("req", req);
+  console.log("req.body", req.body);
   db.Message.create({
     body: req.body.message,
-    recipientId: req.body.recipientId,
-    senderId: req.body.senderId,
+    recipientEmail: req.body.recipientEmail,
+    senderEmail: req.body.senderEmail,g
   })
     .then((response) => {
       res.send(response);

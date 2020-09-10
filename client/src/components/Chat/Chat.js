@@ -6,7 +6,6 @@ import "./Chat.css";
 import "@material-ui/core/";
 import ResponsiveDrawer from "../ResponsiveDrawer/ResponsiveDrawer";
 import axios from "axios";
-import Profile from "../Profile/Profile";
 
 const Chat = ({ userList, setUserList, user, isAuthenticated, isLoading }) => {
   //  States
@@ -20,6 +19,9 @@ const Chat = ({ userList, setUserList, user, isAuthenticated, isLoading }) => {
     console.log("isAuthenticated", isAuthenticated);
 
     if(isAuthenticated) {
+    console.log("user.email", user.email);
+    // set local user to user.email
+    setLocalUser(user.email)
     axios
       .post("/crud/checkIfUserExistsAndCreate", { email: user.email })
       .then((response) => {
@@ -73,7 +75,7 @@ const Chat = ({ userList, setUserList, user, isAuthenticated, isLoading }) => {
       />
       <div className="container">
         <Conversation conversation={conversation} localUser={localUser} remoteUser={remoteUser} />
-        <Input />
+        <Input localUser={localUser} remoteUser={remoteUser} />
       </div>
     </div>
   );
