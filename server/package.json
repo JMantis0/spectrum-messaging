@@ -13,6 +13,11 @@
   "dependencies": {
     "cors": "^2.8.5",
     "express": "^4.17.1",
+<<<<<<< HEAD
     "nodemon": "^2.0.4"
+=======
+    "nodemon": "^2.0.4",
+    "socket.io": "^2.3.0"
+>>>>>>> 3197d38a4ef084aac953b57d616d9babbc26dc71
   }
 }
