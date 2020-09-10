@@ -80,7 +80,7 @@ function ResponsiveDrawer(props) {
           <ListItem
             onClick={(e) => {
               console.log("listitem click");
-              console.log("event: ", e)
+              console.log("event: ", e);
             }}
             button
             key={text}
@@ -90,12 +90,14 @@ function ResponsiveDrawer(props) {
         ))}
         {props.userList.map((userName, index) => (
           <ListItem
-          onClick={(e) => {
-            console.log("listitem click");
-            console.log("event: ", e);
-            console.log("event.target: ", e.target);
-            console.log("event.target.val", e.target.innerText);
-          }}
+            onClick={(e) => {
+              console.log("listitem click");
+              console.log("event: ", e);
+              console.log("event.target: ", e.target);
+              console.log("event.target.val", e.target.innerText);
+              props.setRemoteUser(e.target.innerText);
+              console.log("The remote user is now: ", props.remoteUser);
+            }}
             button
             key={userName}
           >
