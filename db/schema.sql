@@ -14,12 +14,12 @@ CREATE TABLE Users (
 
 CREATE TABLE Messages (
   body VARCHAR(8000) NOT NULL, 
-  senderId VARCHAR(255) NOT NULL,
-  recipientId VARCHAR(255) NOT NULL,
+  senderEmail VARCHAR(255) NOT NULL,
+  recipientEmail VARCHAR(255) NOT NULL,
   createdAt TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
   updatedAt TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  FOREIGN KEY (senderId) REFERENCES Users(email),
-  FOREIGN KEY (recipientId) REFERENCES Users(email),
+  FOREIGN KEY (senderEmail) REFERENCES Users(email),
+  FOREIGN KEY (recipientEmail) REFERENCES Users(email),
   id int NOT NULL AUTO_INCREMENT,
   PRIMARY KEY (id)
 );
