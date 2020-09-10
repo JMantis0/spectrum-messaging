@@ -49,6 +49,10 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+function getConversationWithUser(user) {
+  console.log(user);
+}
+
 function ResponsiveDrawer(props) {
   const { window } = props;
   const classes = useStyles();
@@ -73,8 +77,29 @@ function ResponsiveDrawer(props) {
       <Divider />
       <List>
         {["Jesse", "Jeremiah", "Caroline"].map((text, index) => (
-          <ListItem button key={text}>
+          <ListItem
+            onClick={(e) => {
+              console.log("listitem click");
+              console.log("event: ", e)
+            }}
+            button
+            key={text}
+          >
             <ListItemText primary={text} />
+          </ListItem>
+        ))}
+        {props.userList.map((userName, index) => (
+          <ListItem
+          onClick={(e) => {
+            console.log("listitem click");
+            console.log("event: ", e);
+            console.log("event.target: ", e.target);
+            console.log("event.target.val", e.target.innerText);
+          }}
+            button
+            key={userName}
+          >
+            <ListItemText primary={userName} />
           </ListItem>
         ))}
       </List>

@@ -26,6 +26,7 @@ const App = () => {
       </Route>
       <Route exact path="/chat">
         <Chat
+          userList={userList}
           setUserList={setUserList}
           user={user}
           isAuthenticated={isAuthenticated}
