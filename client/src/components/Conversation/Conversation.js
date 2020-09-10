@@ -8,10 +8,10 @@ const Conversation = ({
   localUser,
   remoteUser,
 }) => {
-  useEffect(() => {
-    console.log("inside useEffect Conversation.js");
-    //set conversation state
-  }, [conversation]);
+  // useEffect(() => {
+  //   console.log("inside useEffect Conversation.js");
+  //   //set conversation state
+  // }, [conversation]);
 
   return (
     <div>

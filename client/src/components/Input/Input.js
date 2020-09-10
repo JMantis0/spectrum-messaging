@@ -3,13 +3,16 @@ import axios from "axios";
 import "./Input.css";
 import { useRef, useState } from "react";
 
-const Input = ({ localUser, remoteUser }) => {
+const Input = ({ getConversation, localUser, remoteUser }) => {
   const inputRef = useRef();
+  const [messageInput, setMessageInput] = useState("");
 
   function addMessage() {
+    const sendThis = messageInput;
+    setMessageInput("");
     axios
       .post("/crud/addMessage", {
-        body: inputRef.current.value,
+        body: sendThis,
         recipientEmail: remoteUser,
         senderEmail: localUser,
       })
@@ -28,6 +31,8 @@ const Input = ({ localUser, remoteUser }) => {
           e.preventDefault();
           console.log("localUser: ", localUser);
           console.log("remoteUser: ", remoteUser);
+          console.log("messageInput", messageInput);
+          getConversation();
         }}
       >
         Console Log Data
@@ -37,6 +42,30 @@ const Input = ({ localUser, remoteUser }) => {
         type="text"
         placeholder="Type a message..."
         ref={inputRef}
+        value={messageInput}
+        onChange={(e) => {
+          console.log("Setting message Input state", e.target.value);
+          setMessageInput(e.target.value);
+          console.log("messageInput", messageInput);
+        }}
+        onKeyPress={(e) => {
+          console.log("e", e)
+          console.log("e.key", e.key)
+          if (e.key === "Enter") {
+            console.log("inside keydown")
+            e.preventDefault();
+            console.log(inputRef.current.value);
+            axios
+              .post("/api/analyze", { text: messageInput })
+              .then((response) => console.log(response))
+              .catch((err) => {
+                console.log("There was an error: ", err);
+              });
+            console.log("localUser: ", localUser);
+            console.log("remoteUser: ", remoteUser);
+            addMessage();
+          }
+        }}
       />
       <button
         className="sendButton"
@@ -44,7 +73,7 @@ const Input = ({ localUser, remoteUser }) => {
           e.preventDefault();
           console.log(inputRef.current.value);
           axios
-            .post("/api/analyze", { text: inputRef.current.value })
+            .post("/api/analyze", { text: messageInput })
             .then((response) => console.log(response))
             .catch((err) => {
               console.log("There was an error: ", err);
@@ -52,7 +81,6 @@ const Input = ({ localUser, remoteUser }) => {
           console.log("localUser: ", localUser);
           console.log("remoteUser: ", remoteUser);
           addMessage();
-          
         }}
       >
         Send

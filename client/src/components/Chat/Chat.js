@@ -13,27 +13,40 @@ const Chat = ({ userList, setUserList, user, isAuthenticated, isLoading }) => {
   let [remoteUser, setRemoteUser] = useState("");
   let [conversation, setConversation] = useState([]);
 
+  function getConversation() {
+    if(localUser && remoteUser) {
+    axios
+      .get(`/crud/getConvo/${localUser}/${remoteUser}`)
+      .then((conversationObject) => {
+        console.log(conversationObject);
+        setConversation(conversationObject.data);
+      });
+    setTimeout(getConversation, 5000);
+    }
+  }
+
   useEffect(() => {
     console.log("inside Chat.js useEffect");
     console.log("user", user);
     console.log("isAuthenticated", isAuthenticated);
 
-    if(isAuthenticated) {
-    console.log("user.email", user.email);
-    // set local user to user.email
-    setLocalUser(user.email)
-    axios
-      .post("/crud/checkIfUserExistsAndCreate", { email: user.email })
-      .then((response) => {
-        console.log(
-          "Attempted to check if user exists and create one if not: ",
-          response
-        );
-      })
-      .catch((error) => {
-        console.log("There was an error: ", error);
-      });
+    if (isAuthenticated) {
+      console.log("user.email", user.email);
+      // set local user to user.email
+      setLocalUser(user.email);
+      axios
+        .post("/crud/checkIfUserExistsAndCreate", { email: user.email })
+        .then((response) => {
+          console.log(
+            "Attempted to check if user exists and create one if not: ",
+            response
+          );
+        })
+        .catch((error) => {
+          console.log("There was an error: ", error);
+        });
     }
+    console.log("just before get all users")
     axios
       .get("/crud/getAllUsers")
       .then((users) => {
@@ -49,16 +62,10 @@ const Chat = ({ userList, setUserList, user, isAuthenticated, isLoading }) => {
       .catch((err) => {
         console.log("There was an error: ", err);
       });
-    
   }, [isAuthenticated]);
 
   useEffect(() => {
-    axios
-      .get(`/crud/getConvo/${localUser}/${remoteUser}`)
-      .then((conversationObject) => {
-        console.log(conversationObject);
-        setConversation(conversationObject.data);
-      });
+    getConversation();
   }, [remoteUser]);
 
   return (
@@ -74,8 +81,16 @@ const Chat = ({ userList, setUserList, user, isAuthenticated, isLoading }) => {
         isLoading={isLoading}
       />
       <div className="container">
-        <Conversation conversation={conversation} localUser={localUser} remoteUser={remoteUser} />
-        <Input localUser={localUser} remoteUser={remoteUser} />
+        <Conversation
+          conversation={conversation}
+          localUser={localUser}
+          remoteUser={remoteUser}
+        />
+        <Input
+          getConversation={getConversation}
+          localUser={localUser}
+          remoteUser={remoteUser}
+        />
       </div>
     </div>
   );
