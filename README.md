@@ -43,7 +43,7 @@ We used Travis CI. To get started you'll need to do the following.
 1. Go to Travis-ci.com and Sign up with GitHub.
 1. Accept the Authorization of Travis CI. You’ll be redirected to GitHub.
 1. Click on your profile picture in the top right of your Travis Dashboard, click Settings and then the green Activate button, and select the repositories you want to use with Travis CI.
-1. Add a .travis.yml file to your repository to tell Travis CI what to do. The following example specifies a Ruby project that should be built with Ruby 2.2 and the latest versions of JRuby.
+1. Add a .travis.yml file to your repository to tell Travis CI what to do.
 1. Add the .travis.yml file to git, commit and push to trigger a Travis CI build
 1. Check the build status page to see if your build passes or fails according to the return status of the build command by visiting Travis CI and selecting your repository.
 
