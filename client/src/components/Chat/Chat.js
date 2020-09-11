@@ -18,7 +18,8 @@ const Chat = ({ userList, setUserList, user, isAuthenticated, isLoading }) => {
       axios
         .get(`/crud/getConvo/${localUser}/${remoteUser}`)
         .then((conversationObject) => {
-          console.log(conversationObject);
+          console.log(conversationObject.data);
+          console.log("remoteUser: ", remoteUser)
           setConversation(conversationObject.data);
         });
       setTimeout(() => getConversation(), 5000);

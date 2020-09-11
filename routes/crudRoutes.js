@@ -71,7 +71,6 @@ console.log(req.params.remoteUser);
     ),
   })
     .then((conversation) => {
-      console.log("crudRoutes.js response: ", conversation);
       const sortedConvo = conversation.sort((a, b) => {
         return a.dataValues.createdAt < b.dataValues.createdAt ? -1 : 1;
       });
