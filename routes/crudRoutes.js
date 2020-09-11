@@ -3,6 +3,7 @@ const db = require("../models");
 const env = require("dotenv");
 const axios = require("axios");
 const bcrypt = require("bcryptjs");
+const Sequelize = require("sequelize");
 
 //  This route will get all the messages existing between two users.
 //  Accordingly, the request object is expected to have the two users.
@@ -32,11 +33,12 @@ router.post("/createUser", (req, res) => {
 //  That would be an interesting async challenge!
 
 router.post("/addMessage", (req, res) => {
-  console.log(req);
+  // console.log("req", req);
+  console.log("req.body", req.body);
   db.Message.create({
-    body: req.body.message,
-    recipientId: req.body.recipientId,
-    senderId: req.body.senderId,
+    body: req.body.body,
+    recipientEmail: req.body.recipientEmail,
+    senderEmail: req.body.senderEmail,
   })
     .then((response) => {
       res.send(response);
@@ -51,35 +53,29 @@ router.post("/addMessage", (req, res) => {
 //  And also gets all the messages sent from the currently logged in user to the other user in the convo
 //  Thus this route expects to emails (the currently logged in user and the other conversant)
 
-router.get("/getConvo", (req, res) => {
-  const { senderId, recipientId } = req.body;
-  console.log("senderId ", senderId);
-  console.log("recipientId ", recipientId);
-  console.log("req.body ", req.body)
-  console.log("req", req)
-  console.log("req.params", req.params);
+router.get("/getConvo/:localUser/:remoteUser", (req, res) => {
 
-
+console.log(req.params.localUser);
+console.log(req.params.remoteUser);
   // SELECT * FROM MESSAGES WHERE (senderId = senderId AND recipientId = rId) OR (senderId = rId AND recipientId = senderId);
   db.Message.findAll({
-    $or: [
+    where: Sequelize.or(
       {
-        where: {
-          senderId: senderId,
-          recipientId: recipientId,
-        },
+        senderEmail: req.params.localUser,
+        recipientEmail: req.params.remoteUser,
       },
       {
-        where: {
-          senderId: recipientId,
-          recipientId: senderId,
-        },
-      },
-    ],
+        senderEmail: req.params.remoteUser,
+        recipientEmail: req.params.localUser,
+      }
+    ),
   })
     .then((conversation) => {
-      console.log("crudRoutes.js response: ", conversation);
-      res.status(202).send(conversation);
+      const sortedConvo = conversation.sort((a, b) => {
+        return a.dataValues.createdAt < b.dataValues.createdAt ? -1 : 1;
+      });
+      console.log("Sorted Convo",sortedConvo)
+      res.status(202).send(sortedConvo);
     })
     .catch((error) => {
       console.log("There was an error: ".error);
@@ -126,13 +122,11 @@ router.post("/checkIfUserExistsAndCreate", (req, res) => {
           .then((response) => {
             console.log("attempt to create new user", response);
             res.send(response);
-
           })
           .catch((error) => {
             console.log("There was an error creating new user: ", error);
             res.send(error);
-          }
-          );
+          });
       } else {
         res.send("user exists");
       }
@@ -141,6 +135,16 @@ router.post("/checkIfUserExistsAndCreate", (req, res) => {
       console.log(error);
       res.send(error);
     });
+});
+
+router.get("/getAllUsers", (req, res) => {
+  db.User.findAll({})
+  .then(users => {
+    console.log(users);
+    res.send(users)
+  }).catch(err => {
+    console.log("There was an error: ", err)
+  });
 });
 
 module.exports = router;

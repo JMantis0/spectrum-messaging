@@ -1,13 +1,14 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import "./App.css";
 import Login from "./components/Login/Login";
 import Chat from "./components/Chat/Chat";
-import Join from "./components/Join/Join";
 import { useAuth0 } from "@auth0/auth0-react";
 import { BrowserRouter as Router, Route } from "react-router-dom";
 
 const App = () => {
   const { user, isAuthenticated, isLoading } = useAuth0();
+  const [userList, setUserList] = useState([]);
+
   return (
     <Router>
       <Route exact path="/">
@@ -17,9 +18,14 @@ const App = () => {
           isLoading={isLoading}
         />
       </Route>
-      <Route exact path="/join" component={Join} />
       <Route exact path="/chat">
-        <Chat user={user} isAuthenticated={isAuthenticated} />
+        <Chat
+          userList={userList}
+          setUserList={setUserList}
+          user={user}
+          isAuthenticated={isAuthenticated}
+          isLoading={isLoading}
+        />
       </Route>
     </Router>
   );
