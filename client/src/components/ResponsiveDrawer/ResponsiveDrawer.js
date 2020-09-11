@@ -133,7 +133,8 @@ function ResponsiveDrawer(props) {
             </span>
           </Typography>
           <LogoutButton />
-          {props.isAuthenticated ? `Logged in as: ${props.user.email}` : "nobody"}
+          {props.localUser ? `Logged in as: ${props.localUser}` : "Logged in as: nobody"}
+          {props.remoteUser ? `Talking to: ${props.remoteUser}` : "Talking to: nobody"}
         </Toolbar>
       </AppBar>
       <nav className={classes.drawer} aria-label="mailbox folders">
