@@ -14,14 +14,14 @@ const Chat = ({ userList, setUserList, user, isAuthenticated, isLoading }) => {
   let [conversation, setConversation] = useState([]);
 
   function getConversation() {
-    if(localUser && remoteUser) {
-    axios
-      .get(`/crud/getConvo/${localUser}/${remoteUser}`)
-      .then((conversationObject) => {
-        console.log(conversationObject);
-        setConversation(conversationObject.data);
-      });
-    setTimeout(getConversation, 5000);
+    if (localUser && remoteUser) {
+      axios
+        .get(`/crud/getConvo/${localUser}/${remoteUser}`)
+        .then((conversationObject) => {
+          console.log(conversationObject);
+          setConversation(conversationObject.data);
+        });
+      setTimeout(() => getConversation(), 5000);
     }
   }
 
@@ -46,7 +46,7 @@ const Chat = ({ userList, setUserList, user, isAuthenticated, isLoading }) => {
           console.log("There was an error: ", error);
         });
     }
-    console.log("just before get all users")
+    console.log("just before get all users");
     axios
       .get("/crud/getAllUsers")
       .then((users) => {
@@ -70,7 +70,6 @@ const Chat = ({ userList, setUserList, user, isAuthenticated, isLoading }) => {
 
   return (
     <div className="outerContainer">
-      {/* <Profile user={user} isAuthenticated={isAuthenticated} isLoading={isLoading} /> */}
       <ResponsiveDrawer
         localUser={localUser}
         remoteUser={remoteUser}
