@@ -3,26 +3,11 @@ import axios from "axios";
 import "./Input.css";
 import { useRef, useState } from "react";
 
-const Input = ({ getConversation, localUser, remoteUser }) => {
+const Input = ({ getConversation, localUser, remoteUser, addMessage, messageInput, setMessageInput }) => {
   const inputRef = useRef();
-  const [messageInput, setMessageInput] = useState("");
+  
 
-  function addMessage() {
-    const sendThis = messageInput;
-    setMessageInput("");
-    axios
-      .post("/crud/addMessage", {
-        body: sendThis,
-        recipientEmail: remoteUser,
-        senderEmail: localUser,
-      })
-      .then((response) => {
-        console.log("response: ", response);
-      })
-      .catch((err) => {
-        console.log("There was an error: ", err);
-      });
-  }
+  
 
   return (
     <form className="form">
@@ -32,7 +17,7 @@ const Input = ({ getConversation, localUser, remoteUser }) => {
           console.log("localUser: ", localUser);
           console.log("remoteUser: ", remoteUser);
           console.log("messageInput", messageInput);
-          getConversation();
+          // getConversation();
         }}
       >
         Console Log Data
