@@ -12,7 +12,7 @@ const Conversation = ({
   return (
     <div>
       {conversation.map((message) => {
-        return <div>{message.body}</div>;
+        return <div>{message.body} {message.createdAt}</div>;
       })}
     </div>
   );
