@@ -91,6 +91,7 @@ function ResponsiveDrawer(props) {
         {props.userList.map((userName, index) => (
           <ListItem
             onClick={(e) => {
+              e.preventDefault();
               console.log("listitem click");
               console.log("event: ", e);
               console.log("event.target: ", e.target);
@@ -133,6 +134,8 @@ function ResponsiveDrawer(props) {
             </span>
           </Typography>
           <LogoutButton />
+          {props.localUser ? `Logged in as: ${props.localUser}` : "Logged in as: nobody"}
+          {props.remoteUser ? `Talking to: ${props.remoteUser}` : "Talking to: nobody"}
         </Toolbar>
       </AppBar>
       <nav className={classes.drawer} aria-label="mailbox folders">

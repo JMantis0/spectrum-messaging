@@ -33,11 +33,12 @@ router.post("/createUser", (req, res) => {
 //  That would be an interesting async challenge!
 
 router.post("/addMessage", (req, res) => {
-  console.log(req);
+  // console.log("req", req);
+  console.log("req.body", req.body);
   db.Message.create({
-    body: req.body.message,
-    recipientId: req.body.recipientId,
-    senderId: req.body.senderId,
+    body: req.body.body,
+    recipientEmail: req.body.recipientEmail,
+    senderEmail: req.body.senderEmail,
   })
     .then((response) => {
       res.send(response);
@@ -70,7 +71,6 @@ console.log(req.params.remoteUser);
     ),
   })
     .then((conversation) => {
-      console.log("crudRoutes.js response: ", conversation);
       const sortedConvo = conversation.sort((a, b) => {
         return a.dataValues.createdAt < b.dataValues.createdAt ? -1 : 1;
       });

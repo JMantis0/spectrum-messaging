@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import "react-pro-sidebar/dist/css/styles.css";
 import Input from "../Input/Input";
 import Conversation from "../Conversation/Conversation";
@@ -6,62 +6,93 @@ import "./Chat.css";
 import "@material-ui/core/";
 import ResponsiveDrawer from "../ResponsiveDrawer/ResponsiveDrawer";
 import axios from "axios";
-import Profile from "../Profile/Profile";
 
 const Chat = ({ userList, setUserList, user, isAuthenticated, isLoading }) => {
   //  States
-  let [localUser, setLocalUser] = useState("Email1@test.com");
-  let [remoteUser, setRemoteUser] = useState("Email2@test.com");
-  let [conversation, setConversation] = useState([]);
+  const [localUser, setLocalUser] = useState("");
+  const [remoteUser, setRemoteUser] = useState("");
+  const [conversation, setConversation] = useState([]);
+  const [messageInput, setMessageInput] = useState("");
+  const [customInterval, setCustomInterval] = useState("");
 
-  useEffect(() => {
-    console.log("inside Chat.js useEffect");
-    console.log("user", user);
-    console.log("isAuthenticated", isAuthenticated);
+  // const prevUser = usePrevious(remoteUser);
+  // function usePrevious(value) {
+  //   const ref = useRef();
+  //   useEffect(() => {
+  //     ref.current = value;
+  //   }, [value]);
+  //   return ref.current;
+  // }
 
-    if(isAuthenticated) {
+  function addMessage() {
+    const sendThis = messageInput;
+    setMessageInput("");
     axios
-      .post("/crud/checkIfUserExistsAndCreate", { email: user.email })
-      .then((response) => {
-        console.log(
-          "Attempted to check if user exists and create one if not: ",
-          response
-        );
+      .post("/crud/addMessage", {
+        body: sendThis,
+        recipientEmail: remoteUser,
+        senderEmail: localUser,
       })
-      .catch((error) => {
-        console.log("There was an error: ", error);
-      });
-    }
-    axios
-      .get("/crud/getAllUsers")
-      .then((users) => {
-        console.log("users", users);
-        console.log("Setting user list to email array");
-        const userNames = users.data.map((user) => {
-          console.log("user in map", user.email);
-          return user.email;
-        });
-        setUserList(userNames);
-        console.log("The userList is now :", userList);
-      })
+      .then((response) => {})
+      .then(() => getConversation())
       .catch((err) => {
         console.log("There was an error: ", err);
       });
-    
-  }, [isAuthenticated]);
+  }
+
+  function getConversation() {
+    // console.log("prevUser is: ", prevUser);
+
+    if (localUser && remoteUser) {
+      axios
+        .get(`/crud/getConvo/${localUser}/${remoteUser}`)
+        .then((conversationObject) => {
+          setConversation(conversationObject.data);
+        })
+        .catch((err) => {
+          console.log("There was an error: ", err);
+        });
+    }
+  }
+
+  useEffect(() => {}, [conversation]);
 
   useEffect(() => {
-    axios
-      .get(`/crud/getConvo/${localUser}/${remoteUser}`)
-      .then((conversationObject) => {
-        console.log(conversationObject);
-        setConversation(conversationObject.data);
-      });
+    if (isAuthenticated) {
+      // set local user to user.email
+      setLocalUser(user.email);
+      axios
+        .post("/crud/checkIfUserExistsAndCreate", { email: user.email })
+        .then(() => {
+          axios.get("/crud/getAllUsers").then((users) => {
+            console.log("Setting user list to email array");
+            const userNames = users.data.map((user) => {
+              return user.email;
+            });
+            setUserList(userNames);
+          });
+        })
+        .catch((error) => {
+          console.log("There was an error: ", error);
+        });
+    }
+  }, [isAuthenticated]);
+
+  let interval;
+  useEffect(() => {
+    clearInterval(interval);
+    getConversation();
+    interval = setInterval(() => getConversation(), 1000);
   }, [remoteUser]);
+
+  useEffect(() => {
+    console.log("conversation", conversation);
+    console.log("localUser", localUser);
+    console.log("remoteUser", remoteUser);
+  }, [conversation]);
 
   return (
     <div className="outerContainer">
-      {/* <Profile user={user} isAuthenticated={isAuthenticated} isLoading={isLoading} /> */}
       <ResponsiveDrawer
         localUser={localUser}
         remoteUser={remoteUser}
@@ -72,8 +103,19 @@ const Chat = ({ userList, setUserList, user, isAuthenticated, isLoading }) => {
         isLoading={isLoading}
       />
       <div className="container">
-        <Conversation conversation={conversation} localUser={localUser} remoteUser={remoteUser} />
-        <Input />
+        <Conversation
+          conversation={conversation}
+          localUser={localUser}
+          remoteUser={remoteUser}
+        />
+        <Input
+          messageInput={messageInput}
+          setMessageInput={setMessageInput}
+          addMessage={addMessage}
+          getConversation={getConversation}
+          localUser={localUser}
+          remoteUser={remoteUser}
+        />
       </div>
     </div>
   );
