@@ -26,6 +26,7 @@ Once the app is launched in the browser, login or sign-up on the authorization p
 ![chat](https://github.com/JMantis0/spectrum-messaging/blob/mern_setup/chat.png)
 
 
+
 # Deployed Link
 https://spectrum-messaging.herokuapp.com/
 

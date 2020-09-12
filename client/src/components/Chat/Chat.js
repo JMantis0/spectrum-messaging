@@ -14,6 +14,7 @@ const Chat = ({ userList, setUserList, user, isAuthenticated, isLoading }) => {
   const [conversation, setConversation] = useState([]);
   const [messageInput, setMessageInput] = useState("");
   const [customInterval, setCustomInterval] = useState("");
+  const [massConversationState, setMassConversationState] = useState("");
 
   // const prevUser = usePrevious(remoteUser);
   // function usePrevious(value) {
@@ -70,6 +71,7 @@ const Chat = ({ userList, setUserList, user, isAuthenticated, isLoading }) => {
               return user.email;
             });
             setUserList(userNames);
+            
           });
         })
         .catch((error) => {

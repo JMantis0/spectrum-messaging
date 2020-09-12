@@ -11,7 +11,7 @@ const Input = ({ getConversation, localUser, remoteUser, addMessage, messageInpu
 
   return (
     <form className="form">
-      <button
+      {/* <button
         onClick={(e) => {
           e.preventDefault();
           console.log("localUser: ", localUser);
@@ -21,7 +21,7 @@ const Input = ({ getConversation, localUser, remoteUser, addMessage, messageInpu
         }}
       >
         Console Log Data
-      </button>
+      </button> */}
       <input
         className="input"
         type="text"

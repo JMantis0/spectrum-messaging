@@ -32,7 +32,7 @@ function Login({ user, isAuthenticated }) {
     <div className="LoginOuterContainer">
       <div className="LoginInnerContainer">
         <h1 className="heading">
-          {isAuthenticated ? `Welcome ${user.email}` : "Click to Login"}
+          {isAuthenticated ? `Welcome ${user.email}` : "Spectrum Messaging"}
         </h1>
         {isAuthenticated ? (
           <Link to="/chat">

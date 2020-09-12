@@ -4,6 +4,7 @@
   align-items: center;
   height: 100vh;
   background-color: #1a1a1d;
+  margin: 0px;
 }
 #right {
   float: right;
@@ -13,9 +14,9 @@
   flex-direction: column;
   justify-content: space-between;
   background: #ffffff;
-  border-radius: 8px;
-  height: 60%;
-  width: 35%;
+  height: 100%;
+  width: 100%;
+  margin: 0px;
 }
 
 @media (min-width: 320px) and (max-width: 480px) {

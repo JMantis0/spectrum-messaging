@@ -76,18 +76,6 @@ function ResponsiveDrawer(props) {
       </List>
       <Divider />
       <List>
-        {["Jesse", "Jeremiah", "Caroline"].map((text, index) => (
-          <ListItem
-            onClick={(e) => {
-              console.log("listitem click");
-              console.log("event: ", e);
-            }}
-            button
-            key={text}
-          >
-            <ListItemText primary={text} />
-          </ListItem>
-        ))}
         {props.userList.map((userName, index) => (
           <ListItem
             onClick={(e) => {
