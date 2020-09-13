@@ -4,12 +4,15 @@ import Login from "./components/Login/Login";
 import Chat from "./components/Chat/Chat";
 import { useAuth0 } from "@auth0/auth0-react";
 import { BrowserRouter as Router, Route } from "react-router-dom";
+import CssBaseLine from '@material-ui/core/CssBaseline';
 
 const App = () => {
   const { user, isAuthenticated, isLoading } = useAuth0();
   const [userList, setUserList] = useState([]);
 
   return (
+    <React.Fragment>
+      <CssBaseLine />
     <Router>
       <Route exact path="/">
         <Login
@@ -28,6 +31,7 @@ const App = () => {
         />
       </Route>
     </Router>
+    </React.Fragment>
   );
 };
 
