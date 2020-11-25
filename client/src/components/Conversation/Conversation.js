@@ -5,10 +5,10 @@ import axios from "axios";
 const Conversation = ({
   conversation
 }) => {
-  // useEffect(() => {
-  //   console.log("inside useEffect Conversation.js");
-  //   //set conversation state
-  // }, [conversation]);
+  useEffect(() => {
+    console.log("inside useEffect Conversation.js");
+    //set conversation state
+  }, [conversation]);
   return (
     <div>
       {conversation.map((message) => {

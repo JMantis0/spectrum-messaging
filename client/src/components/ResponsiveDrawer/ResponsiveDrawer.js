@@ -1,6 +1,7 @@
 import React from "react";
 import AppBar from "@material-ui/core/AppBar";
 import CssBaseline from "@material-ui/core/CssBaseline";
+import Button from "@material-ui/core/Button";
 import Divider from "@material-ui/core/Divider";
 import Drawer from "@material-ui/core/Drawer";
 import Hidden from "@material-ui/core/Hidden";
@@ -13,6 +14,8 @@ import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles, useTheme } from "@material-ui/core/styles";
 import LogoutButton from "../LogoutButton/LogoutButton";
+
+import ResponsiveDrawerTemp from "./ResponsiveDrawerTemp";
 
 const drawerWidth = 240;
 
@@ -39,7 +42,7 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   // necessary for content to be below app bar
-  toolbar: theme.mixins.toolbar,
+
   drawerPaper: {
     width: drawerWidth,
   },
@@ -53,8 +56,18 @@ function getConversationWithUser(user) {
   console.log(user);
 }
 
-function ResponsiveDrawer(props) {
-  const { window } = props;
+function ResponsiveDrawer({
+  localUser,
+  remoteUser,
+  setRemoteUser,
+  userList,
+  user,
+  isAuthenticated,
+  isLoading,
+}) {
+  console.log("userList", userList);
+  //  What is this for?
+  // const { window } = props;
   const classes = useStyles();
   const theme = useTheme();
   const [mobileOpen, setMobileOpen] = React.useState(false);
@@ -62,48 +75,12 @@ function ResponsiveDrawer(props) {
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
   };
-
-  const drawer = (
-    <div>
-      <div className={classes.toolbar} />
-      <Divider />
-      <List>
-        {["Spectrum Messaging"].map((text, index) => (
-          <ListItem button key={text}>
-            <ListItemText primary={text} />
-          </ListItem>
-        ))}
-      </List>
-      <Divider />
-      <List>
-        {props.userList.map((userName, index) => (
-          <ListItem
-            onClick={(e) => {
-              e.preventDefault();
-              console.log("listitem click");
-              console.log("event: ", e);
-              console.log("event.target: ", e.target);
-              console.log("event.target.val", e.target.innerText);
-              props.setRemoteUser(e.target.innerText);
-              console.log("The remote user is now: ", props.remoteUser);
-            }}
-            button
-            key={userName}
-          >
-            <ListItemText primary={userName} />
-          </ListItem>
-        ))}
-      </List>
-      <Divider />
-    </div>
-  );
-
-  const container =
-    window !== undefined ? () => window().document.body : undefined;
+  //  What is this for?
+  // const container =
+  //   window !== undefined ? () => window().document.body : undefined;
 
   return (
     <div className={classes.root}>
-      
       <AppBar position="fixed" className={classes.appBar}>
         <Toolbar>
           <IconButton
@@ -122,15 +99,16 @@ function ResponsiveDrawer(props) {
             </span>
           </Typography>
           <LogoutButton />
-          {props.localUser ? `Logged in as: ${props.localUser}` : "Logged in as: nobody"}
-          {props.remoteUser ? `Talking to: ${props.remoteUser}` : "Talking to: nobody"}
+          {localUser ? `Logged in as: ${localUser}` : "Logged in as: nobody"}
+          {remoteUser ? `Talking to: ${remoteUser}` : "Talking to: nobody"}
+          <Button></Button>
         </Toolbar>
       </AppBar>
       <nav className={classes.drawer} aria-label="mailbox folders">
         {/* The implementation can be swapped with js to avoid SEO duplication of links. */}
         <Hidden smUp implementation="css">
           <Drawer
-            container={container}
+            // container={container}
             variant="temporary"
             anchor={theme.direction === "rtl" ? "right" : "left"}
             open={mobileOpen}
@@ -142,7 +120,11 @@ function ResponsiveDrawer(props) {
               keepMounted: true, // Better open performance on mobile.
             }}
           >
-            {drawer}
+            <ResponsiveDrawerTemp
+              userList={userList}
+              setRemoteUser={setRemoteUser}
+              remoteUser={remoteUser}
+            />
           </Drawer>
         </Hidden>
         <Hidden xsDown implementation="css">
@@ -153,7 +135,11 @@ function ResponsiveDrawer(props) {
             variant="permanent"
             open
           >
-            {drawer}
+            <ResponsiveDrawerTemp
+              userList={userList}
+              setRemoteUser={setRemoteUser}
+              remoteUser={remoteUser}
+            />
           </Drawer>
         </Hidden>
       </nav>

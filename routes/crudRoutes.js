@@ -54,9 +54,8 @@ router.post("/addMessage", (req, res) => {
 //  Thus this route expects to emails (the currently logged in user and the other conversant)
 
 router.get("/getConvo/:localUser/:remoteUser", (req, res) => {
-
-console.log(req.params.localUser);
-console.log(req.params.remoteUser);
+  console.log(req.params.localUser);
+  console.log(req.params.remoteUser);
   // SELECT * FROM MESSAGES WHERE (senderId = senderId AND recipientId = rId) OR (senderId = rId AND recipientId = senderId);
   db.Message.findAll({
     where: Sequelize.or(
@@ -74,7 +73,7 @@ console.log(req.params.remoteUser);
       const sortedConvo = conversation.sort((a, b) => {
         return a.dataValues.createdAt < b.dataValues.createdAt ? -1 : 1;
       });
-      console.log("Sorted Convo",sortedConvo)
+      console.log("Sorted Convo", sortedConvo);
       res.status(202).send(sortedConvo);
     })
     .catch((error) => {
@@ -138,13 +137,15 @@ router.post("/checkIfUserExistsAndCreate", (req, res) => {
 });
 
 router.get("/getAllUsers", (req, res) => {
+  console.log("GET request from client.  Getting all users...");
   db.User.findAll({})
-  .then(users => {
-    console.log(users);
-    res.send(users)
-  }).catch(err => {
-    console.log("There was an error: ", err)
-  });
+    .then((users) => {
+      console.log(`Found ${users.length} users`);
+      res.status(200).send(users);
+    })
+    .catch((err) => {
+      console.log("There was an error: ", err);
+    });
 });
 
 module.exports = router;

@@ -33,46 +33,31 @@ const useStyles = makeStyles((theme) => ({
 
 const App = () => {
   const { user, isAuthenticated, isLoading } = useAuth0();
-  const [userList, setUserList] = useState([]);
+  const [userList, setUserList] = useState(["me"]);
   const classes = useStyles();
-
+console.log("userList", userList)
   return (
     <div className={classes.root}>
       <CssBaseLine />
-      <AppBar position="static">
-        <Toolbar>
-          <IconButton
-            edge="start"
-            className={classes.menuButton}
-            color="inherit"
-            aria-label="menu"
-          >
-            <MenuIcon />
-          </IconButton>
-          <Typography variant="h6" className={classes.title}>
-            Spectrum
-          </Typography>
-        </Toolbar>
 
-        <Router>
-          <Route exact path="/">
-            <Login
-              user={user}
-              isAuthenticated={isAuthenticated}
-              isLoading={isLoading}
-            />
-          </Route>
-          <Route exact path="/chat">
-            <Chat
-              userList={userList}
-              setUserList={setUserList}
-              user={user}
-              isAuthenticated={isAuthenticated}
-              isLoading={isLoading}
-            />
-          </Route>
-        </Router>
-      </AppBar>
+      <Router>
+        <Route exact path="/">
+          <Login
+            user={user}
+            isAuthenticated={isAuthenticated}
+            isLoading={isLoading}
+          />  
+        </Route>
+        <Route exact path="/chat">
+          <Chat
+            userList={userList}
+            setUserList={setUserList}
+            user={user}
+            isAuthenticated={isAuthenticated}
+            isLoading={isLoading}
+          />
+        </Route>
+      </Router>
     </div>
   );
 };
