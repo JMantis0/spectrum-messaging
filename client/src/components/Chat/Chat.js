@@ -4,7 +4,7 @@ import Input from "../Input/Input";
 import Conversation from "../Conversation/Conversation";
 import "./Chat.css";
 import "@material-ui/core/";
-import ResponsiveDrawer from "../ResponsiveDrawer/ResponsiveDrawer";
+import Side from "../ResponsiveDrawer/Side";
 import axios from "axios";
 
 const Chat = ({ userList, setUserList, user, isAuthenticated, isLoading }) => {
@@ -16,7 +16,6 @@ const Chat = ({ userList, setUserList, user, isAuthenticated, isLoading }) => {
   const [customInterval, setCustomInterval] = useState("");
   const [massConversationState, setMassConversationState] = useState("");
 
-  console.log("userList", userList);
   // const prevUser = usePrevious(remoteUser);
   // function usePrevious(value) {
   //   const ref = useRef();
@@ -31,7 +30,7 @@ const Chat = ({ userList, setUserList, user, isAuthenticated, isLoading }) => {
     setMessageInput("");
     axios
       .post("/crud/addMessage", {
-        body: sendThis,
+        message: sendThis,
         recipientEmail: remoteUser,
         senderEmail: localUser,
       })
@@ -48,17 +47,21 @@ const Chat = ({ userList, setUserList, user, isAuthenticated, isLoading }) => {
   }
 
   function getConversation() {
-    // console.log("prevUser is: ", prevUser);
-
+    
     if (localUser && remoteUser) {
+      console.log(`Sending GET request to server on route /crud/getConversation/${localUser}/${remoteUser}`)
       axios
-        .get(`/crud/getConvo/${localUser}/${remoteUser}`)
+        .get(`/crud/getConversation/${localUser}/${remoteUser}`)
         .then((conversationObject) => {
           setConversation(conversationObject.data);
         })
         .catch((err) => {
           console.log("There was an error: ", err);
         });
+    } else {
+      console.log(
+        "Error getting conversation: localUser and remoteUser required."
+      );
     }
   }
 
@@ -104,7 +107,8 @@ const Chat = ({ userList, setUserList, user, isAuthenticated, isLoading }) => {
 
   return (
     <div className="outerContainer">
-      <ResponsiveDrawer
+      <Side
+        setLocalUser={setLocalUser}
         localUser={localUser}
         remoteUser={remoteUser}
         setRemoteUser={setRemoteUser}

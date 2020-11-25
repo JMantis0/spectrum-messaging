@@ -33,9 +33,8 @@ const useStyles = makeStyles((theme) => ({
 
 const App = () => {
   const { user, isAuthenticated, isLoading } = useAuth0();
-  const [userList, setUserList] = useState(["me"]);
+  const [userList, setUserList] = useState(["remoteUser"]);
   const classes = useStyles();
-console.log("userList", userList)
   return (
     <div className={classes.root}>
       <CssBaseLine />

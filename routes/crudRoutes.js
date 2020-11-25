@@ -34,13 +34,18 @@ router.post("/createUser", (req, res) => {
 
 router.post("/addMessage", (req, res) => {
   // console.log("req", req);
-  console.log("req.body", req.body);
+  console.log("POST request from client on /addMessage");
+  console.log("message: ", req.body.message);
+  console.log("recipientEmail: ", req.body.recipientEmail);
+  console.log("senderEmail: ", req.body.senderEmail);
+  console.log("Adding message do SQL DB");
   db.Message.create({
-    body: req.body.body,
+    body: req.body.message,
     recipientEmail: req.body.recipientEmail,
     senderEmail: req.body.senderEmail,
   })
     .then((response) => {
+      console.log("Message saved to DB.... Sending response to client");
       res.send(response);
     })
     .catch((err) => {
@@ -53,7 +58,10 @@ router.post("/addMessage", (req, res) => {
 //  And also gets all the messages sent from the currently logged in user to the other user in the convo
 //  Thus this route expects to emails (the currently logged in user and the other conversant)
 
-router.get("/getConvo/:localUser/:remoteUser", (req, res) => {
+router.get("/getConversation/:localUser/:remoteUser", (req, res) => {
+  const localUser = req.params.localUser;
+  const remoteUser = req.params.remoteUser;
+  console.log(`GET request from client on route /crudRoutes${}`):
   console.log(req.params.localUser);
   console.log(req.params.remoteUser);
   // SELECT * FROM MESSAGES WHERE (senderId = senderId AND recipientId = rId) OR (senderId = rId AND recipientId = senderId);
@@ -138,6 +146,7 @@ router.post("/checkIfUserExistsAndCreate", (req, res) => {
 
 router.get("/getAllUsers", (req, res) => {
   console.log("GET request from client.  Getting all users...");
+
   db.User.findAll({})
     .then((users) => {
       console.log(`Found ${users.length} users`);
