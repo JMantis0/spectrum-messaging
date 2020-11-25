@@ -34,8 +34,13 @@ const Chat = ({ userList, setUserList, user, isAuthenticated, isLoading }) => {
         recipientEmail: remoteUser,
         senderEmail: localUser,
       })
-      .then((response) => {})
-      .then(() => getConversation())
+      .then((response) => {
+        console.log("response from /crud/addMessage: ", response);
+      })
+      .then(() => {
+        console.log("Is this being executed?");
+        getConversation();
+      })
       .catch((err) => {
         console.log("There was an error: ", err);
       });
@@ -56,8 +61,10 @@ const Chat = ({ userList, setUserList, user, isAuthenticated, isLoading }) => {
     }
   }
 
+  //  Why is this here?  this will trigger when conversation changes.
   useEffect(() => {}, [conversation]);
 
+  //
   useEffect(() => {
     if (isAuthenticated) {
       // set local user to user.email
@@ -71,12 +78,13 @@ const Chat = ({ userList, setUserList, user, isAuthenticated, isLoading }) => {
               return user.email;
             });
             setUserList(userNames);
-            
           });
         })
         .catch((error) => {
           console.log("There was an error: ", error);
         });
+    } else {
+      console.log("No authenticated user");
     }
   }, [isAuthenticated]);
 

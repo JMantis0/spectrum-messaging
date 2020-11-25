@@ -1,9 +1,14 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
+import { BrowserRouter as Router, Route } from "react-router-dom";
+
 import "./App.css";
+
+//  Component imports
 import Login from "./components/Login/Login";
 import Chat from "./components/Chat/Chat";
 
-import {makeStyles} from "@material-ui/core/styles";
+// mui imports
+import { makeStyles } from "@material-ui/core/styles";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
@@ -11,8 +16,8 @@ import IconButton from "@material-ui/core/IconButton";
 import MenuIcon from "@material-ui/icons/Menu";
 import CssBaseLine from "@material-ui/core/CssBaseline";
 
+//  auth0 imort
 import { useAuth0 } from "@auth0/auth0-react";
-import { BrowserRouter as Router, Route } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -23,25 +28,29 @@ const useStyles = makeStyles((theme) => ({
   },
   title: {
     flexGrow: 1,
-  }
+  },
 }));
 
 const App = () => {
   const { user, isAuthenticated, isLoading } = useAuth0();
   const [userList, setUserList] = useState([]);
   const classes = useStyles();
-  console.log("classes", classes);
 
   return (
     <div className={classes.root}>
       <CssBaseLine />
       <AppBar position="static">
         <Toolbar>
-          <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
+          <IconButton
+            edge="start"
+            className={classes.menuButton}
+            color="inherit"
+            aria-label="menu"
+          >
             <MenuIcon />
           </IconButton>
           <Typography variant="h6" className={classes.title}>
-          Spectrum
+            Spectrum
           </Typography>
         </Toolbar>
 
@@ -64,7 +73,7 @@ const App = () => {
           </Route>
         </Router>
       </AppBar>
-   </div>
+    </div>
   );
 };
 
