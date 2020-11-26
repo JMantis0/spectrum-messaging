@@ -45,12 +45,14 @@ const Chat = ({ userList, setUserList, user, isAuthenticated, isLoading }) => {
   }
 
   function getConversation() {
-    
     if (localUser && remoteUser) {
-      console.log(`Sending GET request to server on route /crud/getConversation/${localUser}/${remoteUser}`)
+      console.log(
+        `Sending GET request to server on route /crud/getConversation/${localUser}/${remoteUser}`
+      );
       axios
         .get(`/crud/getConversation/${localUser}/${remoteUser}`)
         .then((conversationObject) => {
+          console.log("Response from server: ", conversationObject);
           setConversation(conversationObject.data);
         })
         .catch((err) => {
@@ -106,6 +108,7 @@ const Chat = ({ userList, setUserList, user, isAuthenticated, isLoading }) => {
   return (
     <div className="outerContainer">
       <Side
+        getConversation={getConversation}
         setLocalUser={setLocalUser}
         localUser={localUser}
         remoteUser={remoteUser}
