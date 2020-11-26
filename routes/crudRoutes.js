@@ -61,9 +61,10 @@ router.post("/addMessage", (req, res) => {
 router.get("/getConversation/:localUser/:remoteUser", (req, res) => {
   const localUser = req.params.localUser;
   const remoteUser = req.params.remoteUser;
-  console.log(`GET request from client on route /crudRoutes${}`):
-  console.log(req.params.localUser);
-  console.log(req.params.remoteUser);
+  console.log(
+    `GET request from client on route /crudRoutes/${localUser}/${remoteUser}}`
+  );
+  console.log("Finding conversation between these two users...");
   // SELECT * FROM MESSAGES WHERE (senderId = senderId AND recipientId = rId) OR (senderId = rId AND recipientId = senderId);
   db.Message.findAll({
     where: Sequelize.or(
@@ -78,10 +79,11 @@ router.get("/getConversation/:localUser/:remoteUser", (req, res) => {
     ),
   })
     .then((conversation) => {
+      console.log("Conversation found, sorting...");
       const sortedConvo = conversation.sort((a, b) => {
         return a.dataValues.createdAt < b.dataValues.createdAt ? -1 : 1;
       });
-      console.log("Sorted Convo", sortedConvo);
+      console.log("Conversation sorted.  Sending to client");
       res.status(202).send(sortedConvo);
     })
     .catch((error) => {

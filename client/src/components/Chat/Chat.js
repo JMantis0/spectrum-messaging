@@ -13,8 +13,6 @@ const Chat = ({ userList, setUserList, user, isAuthenticated, isLoading }) => {
   const [remoteUser, setRemoteUser] = useState("");
   const [conversation, setConversation] = useState([]);
   const [messageInput, setMessageInput] = useState("");
-  const [customInterval, setCustomInterval] = useState("");
-  const [massConversationState, setMassConversationState] = useState("");
 
   // const prevUser = usePrevious(remoteUser);
   // function usePrevious(value) {
@@ -92,12 +90,12 @@ const Chat = ({ userList, setUserList, user, isAuthenticated, isLoading }) => {
     }
   }, [isAuthenticated]);
 
-  let interval;
-  useEffect(() => {
-    clearInterval(interval);
-    getConversation();
-    interval = setInterval(() => getConversation(), 1000);
-  }, [remoteUser]);
+  // let interval;
+  // useEffect(() => {
+  //   clearInterval(interval);
+  //   getConversation();
+  //   interval = setInterval(() => getConversation(), 2000);
+  // }, [remoteUser]);
 
   useEffect(() => {
     console.log("conversation", conversation);
