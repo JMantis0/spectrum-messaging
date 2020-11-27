@@ -34,13 +34,18 @@ router.post("/createUser", (req, res) => {
 
 router.post("/addMessage", (req, res) => {
   // console.log("req", req);
-  console.log("req.body", req.body);
+  console.log("POST request from client on /addMessage");
+  console.log("message: ", req.body.message);
+  console.log("recipientEmail: ", req.body.recipientEmail);
+  console.log("senderEmail: ", req.body.senderEmail);
+  console.log("Adding message do SQL DB");
   db.Message.create({
-    body: req.body.body,
+    body: req.body.message,
     recipientEmail: req.body.recipientEmail,
     senderEmail: req.body.senderEmail,
   })
     .then((response) => {
+      console.log("Message saved to DB.... Sending response to client");
       res.send(response);
     })
     .catch((err) => {
@@ -53,10 +58,13 @@ router.post("/addMessage", (req, res) => {
 //  And also gets all the messages sent from the currently logged in user to the other user in the convo
 //  Thus this route expects to emails (the currently logged in user and the other conversant)
 
-router.get("/getConvo/:localUser/:remoteUser", (req, res) => {
-
-console.log(req.params.localUser);
-console.log(req.params.remoteUser);
+router.get("/getConversation/:localUser/:remoteUser", (req, res) => {
+  const localUser = req.params.localUser;
+  const remoteUser = req.params.remoteUser;
+  console.log(
+    `GET request from client on route /crudRoutes/${localUser}/${remoteUser}}`
+  );
+  console.log("Finding conversation between these two users...");
   // SELECT * FROM MESSAGES WHERE (senderId = senderId AND recipientId = rId) OR (senderId = rId AND recipientId = senderId);
   db.Message.findAll({
     where: Sequelize.or(
@@ -71,10 +79,11 @@ console.log(req.params.remoteUser);
     ),
   })
     .then((conversation) => {
+      console.log("Conversation found, sorting...");
       const sortedConvo = conversation.sort((a, b) => {
         return a.dataValues.createdAt < b.dataValues.createdAt ? -1 : 1;
       });
-      console.log("Sorted Convo",sortedConvo)
+      console.log("Conversation sorted.  Sending to client");
       res.status(202).send(sortedConvo);
     })
     .catch((error) => {
@@ -138,13 +147,16 @@ router.post("/checkIfUserExistsAndCreate", (req, res) => {
 });
 
 router.get("/getAllUsers", (req, res) => {
+  console.log("GET request from client.  Getting all users...");
+
   db.User.findAll({})
-  .then(users => {
-    console.log(users);
-    res.send(users)
-  }).catch(err => {
-    console.log("There was an error: ", err)
-  });
+    .then((users) => {
+      console.log(`Found ${users.length} users`);
+      res.status(200).send(users);
+    })
+    .catch((err) => {
+      console.log("There was an error: ", err);
+    });
 });
 
 module.exports = router;
