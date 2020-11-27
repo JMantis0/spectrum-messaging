@@ -118,12 +118,13 @@ const MainPage = ({
     }
   }, [isAuthenticated]);
 
-  // let interval;
-  // useEffect(() => {
-  //   clearInterval(interval);
-  //   getConversation();
-  //   interval = setInterval(() => getConversation(), 2000);
-  // }, [remoteUser]);
+  useEffect(() => {
+    let interval = setInterval(() => getConversation(), 2000);
+    const cleanup = () => {
+      clearInterval(interval);
+    };
+    return cleanup;
+  }, [remoteUser]);
 
   useEffect(() => {
     console.log("conversation", conversation);
@@ -184,7 +185,7 @@ const MainPage = ({
           </Hidden>
         </nav>
         <div className="container">
-          <div className={classes.toolbar} />
+          <div className={classes.toolbar}>Conversation with {remoteUser} as {localUser}</div>
           <Conversation
             conversation={conversation}
             localUser={localUser}
