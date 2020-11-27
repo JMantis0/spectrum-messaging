@@ -6,7 +6,7 @@ import ListItemText from "@material-ui/core/ListItemText";
 
 import { makeStyles } from "@material-ui/core/styles";
 
-const ResponsiveDrawer = ({ userList, setRemoteUser, remoteUser }) => {
+const DrawerList = ({ userList, setRemoteUser, remoteUser }) => {
   const useStyles = makeStyles((theme) => ({
     toolbar: theme.mixins.toolbar,
   }));
@@ -48,4 +48,4 @@ const ResponsiveDrawer = ({ userList, setRemoteUser, remoteUser }) => {
   );
 };
 
-export default ResponsiveDrawer;
+export default DrawerList;

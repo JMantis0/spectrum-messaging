@@ -1,13 +1,17 @@
 import React, { useState, useEffect, useRef } from "react";
 import "react-pro-sidebar/dist/css/styles.css";
-import Input from "../Input/Input";
-import Conversation from "../Conversation/Conversation";
-import "./Chat.css";
+import "./MainPage.css";
 import "@material-ui/core/";
-import Side from "../ResponsiveDrawer/Side";
+import SpectrumDrawer from "../SpectrumDrawer/SpectrumDrawer";
 import axios from "axios";
 
-const Chat = ({ userList, setUserList, user, isAuthenticated, isLoading }) => {
+const MainPage = ({
+  userList,
+  setUserList,
+  user,
+  isAuthenticated,
+  isLoading,
+}) => {
   //  States
   const [localUser, setLocalUser] = useState("");
   const [remoteUser, setRemoteUser] = useState("");
@@ -107,7 +111,11 @@ const Chat = ({ userList, setUserList, user, isAuthenticated, isLoading }) => {
 
   return (
     <div className="outerContainer">
-      <Side
+      <SpectrumDrawer
+        addMessage={addMessage}
+        messageInput={messageInput}
+        setMessageInput={setMessageInput}
+        conversation={conversation}
         getConversation={getConversation}
         setLocalUser={setLocalUser}
         localUser={localUser}
@@ -118,23 +126,8 @@ const Chat = ({ userList, setUserList, user, isAuthenticated, isLoading }) => {
         isAuthenticated={isAuthenticated}
         isLoading={isLoading}
       />
-      <div className="container">
-        <Conversation
-          conversation={conversation}
-          localUser={localUser}
-          remoteUser={remoteUser}
-        />
-        <Input
-          messageInput={messageInput}
-          setMessageInput={setMessageInput}
-          addMessage={addMessage}
-          getConversation={getConversation}
-          localUser={localUser}
-          remoteUser={remoteUser}
-        />
-      </div>
     </div>
   );
 };
 
-export default Chat;
+export default MainPage;

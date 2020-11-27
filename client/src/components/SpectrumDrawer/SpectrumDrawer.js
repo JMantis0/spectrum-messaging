@@ -2,8 +2,9 @@ import React from "react";
 import Drawer from "@material-ui/core/Drawer";
 import Hidden from "@material-ui/core/Hidden";
 import { makeStyles, useTheme } from "@material-ui/core/styles";
-
-import ResponsiveDrawer from "./ResponsiveDrawer";
+import Conversation from "../Conversation/Conversation";
+import Input from "../Input/Input";
+import DrawerContents from "./DrawerList";
 import SpectrumBar from "../SpectrumBar/SpectrumBar";
 
 const drawerWidth = 240;
@@ -29,11 +30,11 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function getConversationWithUser(user) {
-  console.log(user);
-}
-
-function Side({
+function SpectrumDrawer({
+  addMessage,
+  messageInput,
+  setMessageInput,
+  conversation,
   getConversation,
   setLocalUser,
   localUser,
@@ -83,7 +84,7 @@ function Side({
               keepMounted: true, // Better open performance on mobile.
             }}
           >
-            <ResponsiveDrawer
+            <DrawerContents
               userList={userList}
               setRemoteUser={setRemoteUser}
               remoteUser={remoteUser}
@@ -98,7 +99,7 @@ function Side({
             variant="permanent"
             open
           >
-            <ResponsiveDrawer
+            <DrawerContents
               userList={userList}
               setRemoteUser={setRemoteUser}
               remoteUser={remoteUser}
@@ -106,11 +107,24 @@ function Side({
           </Drawer>
         </Hidden>
       </nav>
-      <main className={classes.content}>
+      <div className="container">
         <div className={classes.toolbar} />
-      </main>
+        <Conversation
+          conversation={conversation}
+          localUser={localUser}
+          remoteUser={remoteUser}
+        />
+        <Input
+          messageInput={messageInput}
+          setMessageInput={setMessageInput}
+          addMessage={addMessage}
+          getConversation={getConversation}
+          localUser={localUser}
+          remoteUser={remoteUser}
+        />
+      </div>
     </div>
   );
 }
 
-export default Side;
+export default SpectrumDrawer;

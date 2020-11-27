@@ -5,7 +5,7 @@ import "./App.css";
 
 //  Component imports
 import Login from "./components/Login/Login";
-import Chat from "./components/Chat/Chat";
+import MainPage from "./components/MainPage/MainPage";
 
 // mui imports
 import { makeStyles } from "@material-ui/core/styles";
@@ -48,7 +48,7 @@ const App = () => {
           />  
         </Route>
         <Route exact path="/chat">
-          <Chat
+          <MainPage
             userList={userList}
             setUserList={setUserList}
             user={user}
