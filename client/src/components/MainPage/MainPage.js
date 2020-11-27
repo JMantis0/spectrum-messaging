@@ -2,8 +2,17 @@ import React, { useState, useEffect, useRef } from "react";
 import "react-pro-sidebar/dist/css/styles.css";
 import "./MainPage.css";
 import "@material-ui/core/";
-import SpectrumDrawer from "../SpectrumDrawer/SpectrumDrawer";
+import { makeStyles, useTheme } from "@material-ui/core/styles";
+import SpectrumBar from "../SpectrumBar/SpectrumBar";
+import Hidden from "@material-ui/core/Hidden";
+import Drawer from "@material-ui/core/Drawer";
+import DrawerContents from "./DrawerList";
+import Conversation from "../Conversation/Conversation";
+import Input from "../Input/Input";
+
 import axios from "axios";
+
+const drawerWidth = 240;
 
 const MainPage = ({
   userList,
@@ -12,20 +21,33 @@ const MainPage = ({
   isAuthenticated,
   isLoading,
 }) => {
-  //  States
+  const theme = useTheme();
+  const [mobileOpen, setMobileOpen] = React.useState(false);
   const [localUser, setLocalUser] = useState("");
   const [remoteUser, setRemoteUser] = useState("");
   const [conversation, setConversation] = useState([]);
   const [messageInput, setMessageInput] = useState("");
 
-  // const prevUser = usePrevious(remoteUser);
-  // function usePrevious(value) {
-  //   const ref = useRef();
-  //   useEffect(() => {
-  //     ref.current = value;
-  //   }, [value]);
-  //   return ref.current;
-  // }
+  const useStyles = makeStyles((theme) => ({
+    root: {
+      display: "flex",
+    },
+    drawer: {
+      [theme.breakpoints.up("sm")]: {
+        width: drawerWidth,
+        flexShrink: 0,
+      },
+    },
+    toolbar: theme.mixins.toolbar,
+    drawerPaper: {
+      width: drawerWidth,
+    },
+    content: {
+      flexGrow: 1,
+      padding: theme.spacing(3),
+    },
+  }));
+  const classes = useStyles();
 
   function addMessage() {
     const sendThis = messageInput;
@@ -109,23 +131,75 @@ const MainPage = ({
     console.log("remoteUser", remoteUser);
   }, [conversation]);
 
+  const handleDrawerToggle = () => {
+    setMobileOpen(!mobileOpen);
+  };
+
   return (
     <div className="outerContainer">
-      <SpectrumDrawer
-        addMessage={addMessage}
-        messageInput={messageInput}
-        setMessageInput={setMessageInput}
-        conversation={conversation}
-        getConversation={getConversation}
-        setLocalUser={setLocalUser}
-        localUser={localUser}
-        remoteUser={remoteUser}
-        setRemoteUser={setRemoteUser}
-        userList={userList}
-        user={user}
-        isAuthenticated={isAuthenticated}
-        isLoading={isLoading}
-      />
+      <div className={classes.root}>
+        <SpectrumBar
+          localUser={localUser}
+          remoteUser={remoteUser}
+          setLocalUser={setLocalUser}
+          getConversation={getConversation}
+          mobileOpen={mobileOpen}
+          setMobileOpen={setMobileOpen}
+        />
+        <nav className={classes.drawer} aria-label="mailbox folders">
+          <Hidden smUp implementation="css">
+            <Drawer
+              variant="temporary"
+              anchor={theme.direction === "rtl" ? "right" : "left"}
+              open={mobileOpen}
+              onClose={handleDrawerToggle}
+              classes={{
+                paper: classes.drawerPaper,
+              }}
+              ModalProps={{
+                keepMounted: true,
+              }}
+            >
+              <DrawerContents
+                userList={userList}
+                setRemoteUser={setRemoteUser}
+                remoteUser={remoteUser}
+              />
+            </Drawer>
+          </Hidden>
+          <Hidden xsDown implementation="css">
+            <Drawer
+              classes={{
+                paper: classes.drawerPaper,
+              }}
+              variant="permanent"
+              open
+            >
+              <DrawerContents
+                userList={userList}
+                setRemoteUser={setRemoteUser}
+                remoteUser={remoteUser}
+              />
+            </Drawer>
+          </Hidden>
+        </nav>
+        <div className="container">
+          <div className={classes.toolbar} />
+          <Conversation
+            conversation={conversation}
+            localUser={localUser}
+            remoteUser={remoteUser}
+          />
+          <Input
+            messageInput={messageInput}
+            setMessageInput={setMessageInput}
+            addMessage={addMessage}
+            getConversation={getConversation}
+            localUser={localUser}
+            remoteUser={remoteUser}
+          />
+        </div>
+      </div>
     </div>
   );
 };
