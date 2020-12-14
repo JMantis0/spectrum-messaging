@@ -37,6 +37,7 @@
     "mysql2": "^1.7.0",
     "react-auth0": "^0.4.1",
     "react-pro-sidebar": "^0.4.4",
+    "react-sizeme": "^2.6.12",
     "sequelize": "^5.8.6",
     "socket.io": "^2.3.0"
   }
